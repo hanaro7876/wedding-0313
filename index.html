@@ -131,7 +131,7 @@
   .ending { position:relative; aspect-ratio:3/4.4; display:flex; align-items:center; padding:0 28px; text-align:left;
     background:url(ending.jpg) center/cover, linear-gradient(160deg,#d9c9bb,#a8978a);
     -webkit-mask-image:linear-gradient(transparent,#000 18%,#000 72%,transparent); mask-image:linear-gradient(transparent,#000 18%,#000 72%,transparent); }
-  .ending p { color:#fff; font-size:12px; line-height:20.4px; letter-spacing:2px; text-shadow:0 1px 6px rgba(0,0,0,.25); }
+  .ending-txt { margin:-8px 0 40px; text-align:center; color:var(--strong); font-size:14px; line-height:26px; letter-spacing:1px; }
   footer { padding:8px 28px 48px; text-align:center; }
   footer .share { background:none; border:none; font:inherit; font-size:13px; letter-spacing:-.5px; color:var(--strong); cursor:pointer; }
   footer small { display:block; margin-top:16px; font-family:var(--en); color:#c9bfb6; font-size:11px; letter-spacing:1px; }
@@ -176,8 +176,8 @@
 
 <div id="intro">
   <div class="bg"></div>
-  <div class="title"><div>BLESSING</div><div><i>–</i>BEGINS</div></div>
-  <div class="foot"><span>WEDDING</span><span>INVITATION</span></div>
+  <div class="title"><div>Eungang</div><div><i>&amp;</i>Dain</div></div>
+  <div class="foot"><span>SAT, MARCH 13</span><span>5 PM</span></div>
 </div>
 <button id="bgm-btn" aria-label="배경음악 켜기/끄기">♪</button>
 <audio id="bgm" src="bgm.mp3" loop></audio>
@@ -228,7 +228,7 @@
   <section class="gallery-sec">
     <p class="en fade">GALLERY</p>
     <h2 class="fade">웨딩 갤러리</h2>
-    <button class="fade" id="gal-cover"><img src="photos/03.jpg" alt="웨딩 갤러리 열기"><span>사진 보기 +</span></button>
+    <button class="fade" id="gal-cover"><img src="photos/13.jpg" alt="웨딩 갤러리 열기"><span>사진 보기 +</span></button>
   </section>
   <div id="gal-view"><button id="gal-close" aria-label="닫기">✕</button><p class="en">GALLERY</p><div id="gallery"></div></div>
 
@@ -293,13 +293,12 @@
     <details class="acc fade" id="acc-bride"><summary>신부측 계좌번호</summary></details>
   </section>
 
-  <div class="ending">
-    <p class="fade">
+  <div class="ending"></div>
+    <p class="ending-txt fade">
       봄이 오는 길목에서<br>
       서로의 계절이 되기로 했습니다.<br><br>
       은강, 다인
     </p>
-  </div>
   <footer>
     <button class="share" id="share"><svg class="i"><use href="#ic-link"/></svg> 청첩장 링크 복사하기</button>
     <small>WITH LOVE, EUNGANG &amp; DAIN</small>
@@ -358,10 +357,9 @@
     $('cd-s').textContent = Math.floor(ms / 1e3) % 60;
   };
   tick(); setInterval(tick, 1000);
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  const diff = Math.round((new Date(2027, 2, 13) - today) / 864e5);
-  $('dday').innerHTML = diff > 0 ? `은강 ♥ 다인의 결혼식이 <b>${diff}일</b> 남았습니다.`
-    : diff === 0 ? '<b>오늘</b> 결혼합니다!' : '저희 결혼했습니다. 감사합니다.';
+  const diff = Math.floor(Math.max(0, WEDDING - Date.now()) / 864e5);  // 위 DAYS 숫자와 같게
+  $('dday').innerHTML = Date.now() < WEDDING && diff > 0 ? `은강 ♥ 다인의 결혼식이 <b>${diff}일</b> 남았습니다.`
+    : Date.now() < WEDDING ? '<b>오늘</b> 결혼합니다!' : '저희 결혼했습니다. 감사합니다.';
 
   // 캘린더 추가 (.ics)
   $('ics').onclick = () => {
@@ -411,7 +409,7 @@
     $(id).insertAdjacentHTML('beforeend', list.filter(p => p[3]).map(([, name, , acc]) =>
       `<div class="row"><div><b>${name}</b><span>${acc}</span></div><button class="btn btn-sm" data-copy="${acc}">${copyIcon}복사</button></div>`).join(''));
   $('contact-btn').onclick = () => $('contact').showModal();
-  if (![...PEOPLE.groom, ...PEOPLE.bride].some(p => p[2])) $('contact-btn').hidden = true;
+  if (![...PEOPLE.groom, ...PEOPLE.bride].some(p => p[2])) $('contact-btn').style.display = 'none';
 
   // 스크롤 애니메이션
   const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('show')), { threshold: .15 });
