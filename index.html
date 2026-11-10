@@ -22,6 +22,8 @@
   body { background:#eee9e3; font-family:'Gowun Dodum', sans-serif; font-size:14px; line-height:25px; color:var(--ink); -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent; }
   main { max-width:430px; margin:0 auto; background:var(--bg) var(--paper); overflow:hidden; min-height:100vh; box-shadow:0 0 40px rgba(0,0,0,.06); }
   section { padding:60px 32px; text-align:center; }
+  /* 섹션 구분: 예식 일시 · 오시는 길 · 참석 의사 배경을 한 톤 어둡게 */
+  main > section:nth-of-type(2n+3) { background:rgba(120,90,60,.045); }
   .en { font-family:var(--en); font-size:14px; line-height:22px; letter-spacing:2px; color:var(--point); }
   h2 { font-weight:400; font-size:18px; line-height:28px; color:var(--point); margin:4px 0 36px; }
   .desc { margin-bottom:28px; }
@@ -147,6 +149,17 @@
   .ct b { font-weight:400; color:var(--strong); }
   .ct a { display:inline-flex; width:32px; height:32px; margin-left:6px; border-radius:50%; background:#fff; border:1px solid var(--btn-line); color:var(--point); align-items:center; justify-content:center; }
   dialog .close { display:block; margin:20px auto 0; }
+  /* 참석 의사 안내 팝업 */
+  #rsvp-pop { position:relative; text-align:center; padding:40px 28px 24px; }
+  #rsvp-pop .x { position:absolute; top:10px; right:10px; width:40px; height:40px; border:none; background:none; font-size:18px; color:var(--strong); cursor:pointer; }
+  #rsvp-pop .t { outline:none; font-family:inherit; font-size:18px; letter-spacing:0; color:var(--strong); margin-bottom:14px; }
+  #rsvp-pop .msg { line-height:1.8; padding-bottom:20px; border-bottom:1px solid var(--line); }
+  #rsvp-pop .info { list-style:none; padding:20px 0 4px; margin:0; text-align:left; }
+  #rsvp-pop .info li { display:flex; align-items:center; gap:10px; margin-bottom:10px; color:var(--ink); }
+  #rsvp-pop .info b { font-weight:600; color:var(--strong); }
+  #rsvp-pop .info svg { flex:none; color:var(--strong); }
+  #rsvp-pop .go { width:100%; margin-top:12px; background:var(--point); border-color:var(--point); color:#fff; }
+  #rsvp-pop .skip { display:inline-flex; align-items:center; gap:6px; margin-top:16px; font-size:13px; color:var(--sub); cursor:pointer; }
   /* 참석 의사 */
   #rsvp form { text-align:left; }
   #rsvp .f { display:block; margin-bottom:16px; font-size:13px; color:var(--sub); }
@@ -184,6 +197,8 @@
   <symbol id="ic-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"/><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/></symbol>
   <symbol id="ic-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
   <symbol id="ic-sms" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="ic-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></symbol>
+  <symbol id="ic-pin" viewBox="0 0 24 24"><path d="M12 21s-6-5.6-6-11a6 6 0 0 1 12 0c0 5.4-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></symbol>
   <symbol id="ic-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></symbol>
 </svg>
 
@@ -241,7 +256,7 @@
   <section class="gallery-sec">
     <p class="en fade">GALLERY</p>
     <h2 class="fade">웨딩 갤러리</h2>
-    <button class="fade" id="gal-cover"><img src="photos/13.jpg" alt="웨딩 갤러리 열기"><span>사진 보기 +</span></button>
+    <button class="fade" id="gal-cover"><img src="photos/15.jpg" alt="웨딩 갤러리 열기"><span>사진 보기 +</span></button>
   </section>
   <div id="gal-view"><button id="gal-close" aria-label="닫기">✕</button><p class="en">GALLERY</p><div id="gallery"></div></div>
 
@@ -325,6 +340,18 @@
   </footer>
 </main>
 
+<dialog id="rsvp-pop">
+  <button class="x" aria-label="닫기" onclick="this.closest('dialog').close()">✕</button>
+  <h3 class="t" tabindex="-1" autofocus>참석 의사 전달</h3>
+  <p class="msg">축하의 마음으로 참석해 주시는<br>모든 분들을 귀하게 모실 수 있도록<br>참석 의사를 전달 부탁드립니다.</p>
+  <ul class="info">
+    <li><svg class="i"><use href="#ic-heart"/></svg><b>신랑 최은강 &amp; 신부 김다인</b></li>
+    <li><svg class="i"><use href="#ic-cal"/></svg>2027년 3월 13일 토요일 오후 5시</li>
+    <li><svg class="i"><use href="#ic-pin"/></svg>한국기독교연합회관 3층 연합웨딩홀</li>
+  </ul>
+  <button class="btn go" id="pop-go">참석 의사 전달하기</button>
+  <label class="skip"><input type="checkbox" id="pop-skip"><span>오늘 하루 보지 않기</span></label>
+</dialog>
 <dialog id="rsvp">
   <h3>R.S.V.P</h3>
   <form id="rsvp-form">
@@ -445,6 +472,14 @@
   if (!RSVP_URL) $('rsvp-sec').style.display = 'none';
   const rf = $('rsvp-form');
   $('rsvp-btn').onclick = () => $('rsvp').showModal();
+  // 인트로가 끝나면 참석 의사 안내 팝업 (오늘 하루 보지 않기 → 24시간 숨김)
+  const SKIP_KEY = 'rsvp-pop-skip-until';
+  let skipUntil = 0; try { skipUntil = +localStorage.getItem(SKIP_KEY) || 0; } catch {}
+  const pop = $('rsvp-pop');
+  pop.onclose = () => { if ($('pop-skip').checked) try { localStorage.setItem(SKIP_KEY, Date.now() + 864e5); } catch {} };
+  $('pop-go').onclick = () => { pop.close(); $('rsvp').showModal(); };
+  if (RSVP_URL && Date.now() < WEDDING && Date.now() > skipUntil)
+    $('intro').addEventListener('transitionend', () => !pop.open && !$('rsvp').open && pop.showModal(), { once: true });
   rf.onsubmit = async e => {
     e.preventDefault();
     const d = new FormData(rf);
