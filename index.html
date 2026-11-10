@@ -481,7 +481,7 @@
   pop.onclose = () => { if ($('pop-skip').checked) try { localStorage.setItem(SKIP_KEY, Date.now() + 864e5); } catch {} };
   $('pop-go').onclick = () => { pop.close(); $('rsvp').showModal(); };
   if (RSVP_URL && Date.now() < WEDDING && Date.now() > skipUntil)
-    $('intro').addEventListener('transitionend', () => !pop.open && !$('rsvp').open && pop.showModal(), { once: true });
+    $('intro').addEventListener('transitionend', () => !pop.open && !$('rsvp').open && !$('gal-view').classList.contains('on') && pop.showModal(), { once: true });
   rf.onsubmit = async e => {
     e.preventDefault();
     const d = new FormData(rf);
