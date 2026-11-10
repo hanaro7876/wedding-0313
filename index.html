@@ -147,6 +147,19 @@
   .ct b { font-weight:400; color:var(--strong); }
   .ct a { display:inline-flex; width:32px; height:32px; margin-left:6px; border-radius:50%; background:#fff; border:1px solid var(--btn-line); color:var(--point); align-items:center; justify-content:center; }
   dialog .close { display:block; margin:20px auto 0; }
+  /* 참석 의사 */
+  #rsvp form { text-align:left; }
+  #rsvp .f { display:block; margin-bottom:16px; font-size:13px; color:var(--sub); }
+  #rsvp input[name=name], #rsvp select { display:block; width:100%; margin-top:6px; padding:11px 12px; border:1px solid var(--btn-line); border-radius:10px; background:#fff; font:inherit; font-size:15px; color:var(--strong); }
+  #rsvp .seg { display:flex; gap:6px; margin-top:6px; }
+  #rsvp .seg label { flex:1; }
+  #rsvp .seg input { position:absolute; opacity:0; pointer-events:none; }
+  #rsvp .seg span { display:block; padding:10px 0; text-align:center; border:1px solid var(--btn-line); border-radius:10px; background:#fff; font-size:14px; color:var(--ink); cursor:pointer; }
+  #rsvp .seg input:checked + span { background:var(--point); border-color:var(--point); color:#fff; }
+  #rsvp .seg input:focus-visible + span { outline:2px solid var(--point-dk); }
+  #rsvp form.absent .only-attend { display:none; }
+  #rsvp .submit { width:100%; margin-top:8px; background:var(--point); color:#fff; border-color:var(--point); }
+  #rsvp .submit:disabled { opacity:.6; }
 
   #bgm-btn { position:fixed; top:14px; right:max(14px, calc(50% - 201px)); width:36px; height:36px; border-radius:50%; border:none; background:rgba(255,255,255,.85); color:var(--point); font-size:15px; cursor:pointer; z-index:9; box-shadow:0 2px 8px rgba(0,0,0,.08); }
   #toast { position:fixed; bottom:40px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.7); color:#fff; padding:8px 18px; border-radius:20px; font-size:13px; opacity:0; transition:.3s; pointer-events:none; z-index:30; }
@@ -286,6 +299,13 @@
     </div>
   </section>
 
+  <section id="rsvp-sec">
+    <p class="en fade">R.S.V.P</p>
+    <h2 class="fade">참석 의사 전달</h2>
+    <p class="desc fade">축하의 마음으로 참석해 주시는 분들을 위해<br>준비에 참고하고자 합니다.<br>참석 여부를 알려 주시면 감사하겠습니다.</p>
+    <button class="btn fade" id="rsvp-btn"><svg class="i"><use href="#ic-cal"/></svg>참석 의사 전달하기</button>
+  </section>
+
   <section>
     <p class="en fade">ACCOUNT</p>
     <h2 class="fade">마음 전하실 곳</h2>
@@ -306,6 +326,18 @@
   </footer>
 </main>
 
+<dialog id="rsvp">
+  <h3>R.S.V.P</h3>
+  <form id="rsvp-form">
+    <label class="f">성함<input name="name" required maxlength="30" autocomplete="name" placeholder="성함을 입력해 주세요"></label>
+    <div class="f">구분<div class="seg"><label><input type="radio" name="side" value="신랑측" required><span>신랑측</span></label><label><input type="radio" name="side" value="신부측"><span>신부측</span></label></div></div>
+    <div class="f">참석 여부<div class="seg"><label><input type="radio" name="attend" value="참석" required checked><span>참석</span></label><label><input type="radio" name="attend" value="불참"><span>불참</span></label></div></div>
+    <label class="f only-attend">참석 인원 (본인 포함)<select name="count"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option value="6+">6명 이상</option></select></label>
+    <div class="f only-attend">식사 여부<div class="seg"><label><input type="radio" name="meal" value="예정" checked><span>예정</span></label><label><input type="radio" name="meal" value="안 함"><span>안 함</span></label><label><input type="radio" name="meal" value="미정"><span>미정</span></label></div></div>
+    <button class="btn submit" type="submit">전달하기</button>
+  </form>
+  <button class="btn btn-sm close" onclick="this.closest('dialog').close()">닫기</button>
+</dialog>
 <dialog id="contact">
   <h3>CONTACT</h3>
   <div id="contact-list"></div>
@@ -410,6 +442,24 @@
     $(id).insertAdjacentHTML('beforeend', list.filter(p => p[3]).map(([, name, , acc]) =>
       `<div class="row"><div><b>${name}</b><span>${acc}</span></div><button class="btn btn-sm" data-copy="${acc}">${copyIcon}복사</button></div>`).join(''));
   $('contact-btn').onclick = () => $('contact').showModal();
+
+  // 참석 의사 → 구글 시트 (RSVP_URL: 구글 Apps Script 웹 앱 주소. 비어 있으면 섹션 숨김)
+  const RSVP_URL = '';
+  if (!RSVP_URL) $('rsvp-sec').style.display = 'none';
+  const rf = $('rsvp-form');
+  $('rsvp-btn').onclick = () => $('rsvp').showModal();
+  rf.onchange = () => rf.classList.toggle('absent', rf.attend.value === '불참');
+  rf.onsubmit = async e => {
+    e.preventDefault();
+    const d = new FormData(rf);
+    if (d.get('attend') === '불참') { d.set('count', '0'); d.set('meal', '-'); }
+    const btn = rf.querySelector('.submit'); btn.disabled = true; btn.textContent = '전달 중…';
+    try {
+      await fetch(RSVP_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(d) });
+      $('rsvp').close(); rf.reset(); rf.classList.remove('absent'); toast('전달되었습니다. 감사합니다!');
+    } catch { toast('전송에 실패했어요. 잠시 후 다시 시도해 주세요.'); }
+    btn.disabled = false; btn.textContent = '전달하기';
+  };
   if (![...PEOPLE.groom, ...PEOPLE.bride].some(p => p[2])) $('contact-btn').style.display = 'none';
 
   // 스크롤 애니메이션
