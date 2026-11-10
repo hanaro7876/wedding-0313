@@ -157,7 +157,6 @@
   #rsvp .seg span { display:block; padding:10px 0; text-align:center; border:1px solid var(--btn-line); border-radius:10px; background:#fff; font-size:14px; color:var(--ink); cursor:pointer; }
   #rsvp .seg input:checked + span { background:var(--point); border-color:var(--point); color:#fff; }
   #rsvp .seg input:focus-visible + span { outline:2px solid var(--point-dk); }
-  #rsvp form.absent .only-attend { display:none; }
   #rsvp .submit { width:100%; margin-top:8px; background:var(--point); color:#fff; border-color:var(--point); }
   #rsvp .submit:disabled { opacity:.6; }
 
@@ -331,9 +330,7 @@
   <form id="rsvp-form">
     <label class="f">성함<input name="name" required maxlength="30" autocomplete="name" placeholder="성함을 입력해 주세요"></label>
     <div class="f">구분<div class="seg"><label><input type="radio" name="side" value="신랑측" required><span>신랑측</span></label><label><input type="radio" name="side" value="신부측"><span>신부측</span></label></div></div>
-    <div class="f">참석 여부<div class="seg"><label><input type="radio" name="attend" value="참석" required checked><span>참석</span></label><label><input type="radio" name="attend" value="불참"><span>불참</span></label></div></div>
-    <label class="f only-attend">참석 인원 (본인 포함)<select name="count"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option value="6+">6명 이상</option></select></label>
-    <div class="f only-attend">식사 여부<div class="seg"><label><input type="radio" name="meal" value="예정" checked><span>예정</span></label><label><input type="radio" name="meal" value="안 함"><span>안 함</span></label><label><input type="radio" name="meal" value="미정"><span>미정</span></label></div></div>
+    <div class="f">참석 여부<div class="seg"><label><input type="radio" name="attend" value="참석" required><span>참석</span></label><label><input type="radio" name="attend" value="불참"><span>불참</span></label></div></div>
     <button class="btn submit" type="submit">전달하기</button>
   </form>
   <button class="btn btn-sm close" onclick="this.closest('dialog').close()">닫기</button>
@@ -448,15 +445,13 @@
   if (!RSVP_URL) $('rsvp-sec').style.display = 'none';
   const rf = $('rsvp-form');
   $('rsvp-btn').onclick = () => $('rsvp').showModal();
-  rf.onchange = () => rf.classList.toggle('absent', rf.attend.value === '불참');
   rf.onsubmit = async e => {
     e.preventDefault();
     const d = new FormData(rf);
-    if (d.get('attend') === '불참') { d.set('count', '0'); d.set('meal', '-'); }
     const btn = rf.querySelector('.submit'); btn.disabled = true; btn.textContent = '전달 중…';
     try {
       await fetch(RSVP_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(d) });
-      $('rsvp').close(); rf.reset(); rf.classList.remove('absent'); toast('전달되었습니다. 감사합니다!');
+      $('rsvp').close(); rf.reset(); toast('전달되었습니다. 감사합니다!');
     } catch { toast('전송에 실패했어요. 잠시 후 다시 시도해 주세요.'); }
     btn.disabled = false; btn.textContent = '전달하기';
   };
