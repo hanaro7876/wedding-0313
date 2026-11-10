@@ -74,20 +74,10 @@
 
   /* 갤러리 */
   .gallery-sec { padding-left:16px; padding-right:16px; }
-  .gallery { display:flex; gap:8px; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none; margin:0 -16px; padding:0 16px; }
-  .gallery::-webkit-scrollbar { display:none; }
-  .gallery > * { flex:0 0 auto; height:240px; width:auto; scroll-snap-align:center; border-radius:6px; background:#e6dbd0; }
-  .gallery img { cursor:zoom-in; }
-  .gallery img.wide { width:100%; object-fit:cover; }
-  .gallery + .gallery { margin-top:24px; }
-  .gallery .ph { display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; letter-spacing:.15em; }
-  #gal-cover { position:relative; display:block; width:100%; padding:0; border:none; border-radius:6px; overflow:hidden; cursor:pointer; background:#e6dbd0; }
-  #gal-cover img { display:block; width:100%; aspect-ratio:3/4; object-fit:cover; }
-  #gal-cover span { position:absolute; left:50%; bottom:20px; transform:translateX(-50%); padding:8px 18px; border-radius:20px; background:rgba(255,255,255,.85); color:#5a4a40; font-size:13px; letter-spacing:.1em; }
-  #gal-view { position:fixed; top:0; bottom:0; left:50%; width:min(100%,430px); margin-left:max(-50%,-215px); z-index:24; background:#f6f3ef; overflow-y:auto; display:none; padding:56px 16px 40px; }
-  #gal-view.on { display:block; }
-  #gal-view > .en { text-align:center; margin-bottom:24px; }
-  #gal-close { position:sticky; top:-48px; float:right; margin:-48px -12px 0 0; z-index:1; background:rgba(246,243,239,.9); border:none; border-radius:50%; font-size:20px; width:44px; height:44px; cursor:pointer; color:#5a4a40; }
+  #gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin:0 -16px; }
+  #gallery img { display:block; width:100%; aspect-ratio:3/4; object-fit:cover; cursor:zoom-in; background:#e6dbd0; }
+  #gallery:not(.all) img:nth-child(n+10) { display:none; }
+  #gal-more { margin-top:24px; }
   #lightbox { position:fixed; top:0; bottom:0; left:50%; width:min(100%,430px); margin-left:max(-50%,-215px); z-index:25; background:rgba(20,16,14,.94); display:none; align-items:center; justify-content:center; }
   #lightbox.on { display:flex; }
   #lightbox img { max-width:100%; max-height:80vh; }
@@ -258,9 +248,9 @@
   <section class="gallery-sec">
     <p class="en fade">GALLERY</p>
     <h2 class="fade">웨딩 갤러리</h2>
-    <button class="fade" id="gal-cover"><img src="photos/15.jpg" alt="웨딩 갤러리 열기"><span>사진 보기 +</span></button>
+    <div class="fade" id="gallery"></div>
+    <button class="btn btn-sm fade" id="gal-more">사진 더보기</button>
   </section>
-  <div id="gal-view"><button id="gal-close" aria-label="닫기">✕</button><p class="en">GALLERY</p><div id="gallery"></div></div>
 
   <section class="loc">
     <p class="en fade">LOCATION</p>
@@ -430,23 +420,16 @@
     a.download = 'wedding.ics'; a.click();
   };
 
-  // 갤러리 + 크게 보기 (사진 없으면 자리표시)
-  const RATIOS = ['3/4.2', '3/4.2', '3/4.2', '3/2', '3/3.6', '3/3'];
+  // 갤러리: 3열 콜라주, 9장 먼저 보이고 '사진 더보기'로 나머지. 누르면 크게 보기
   let cur = 0;
-  PHOTOS.forEach(group => {
-   const box = document.createElement('div'); box.className = 'gallery'; $('gallery').append(box);
-   group.forEach((src, i) => {
-    const img = new Image(); img.src = src; img.alt = '';
-    const ph = document.createElement('div'); ph.className = 'ph'; ph.textContent = 'PHOTO'; ph.style.aspectRatio = RATIOS[i % RATIOS.length];
-    box.append(ph);
-    img.onload = () => { img.classList.toggle('wide', img.naturalWidth > img.naturalHeight); ph.replaceWith(img); };
-    img.onerror = () => ph.remove();
+  PHOTOS.flat().forEach(src => {
+    const img = new Image(); img.src = src; img.alt = ''; img.loading = 'lazy';
+    img.onerror = () => img.remove();
     img.onclick = () => openLb(src);
-   });
+    $('gallery').append(img);
   });
-  const gv = $('gal-view');
-  $('gal-cover').onclick = () => { gv.classList.add('on'); gv.scrollTop = 0; document.body.style.overflow = 'hidden'; };
-  $('gal-close').onclick = () => { gv.classList.remove('on'); document.body.style.overflow = ''; };
+  if (PHOTOS.flat().length <= 9) $('gal-more').remove();
+  else $('gal-more').onclick = e => { $('gallery').classList.add('all'); e.currentTarget.remove(); };
   const lb = $('lightbox'), lbImg = lb.querySelector('img');
   const loaded = () => [...$('gallery').querySelectorAll('img')].map(i => i.getAttribute('src'));
   const show = n => { const l = loaded(); cur = (n + l.length) % l.length; lbImg.src = l[cur]; $('lb-num').textContent = `${cur + 1} / ${l.length}`; };
