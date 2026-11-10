@@ -441,7 +441,7 @@
   $('contact-btn').onclick = () => $('contact').showModal();
 
   // 참석 의사 → 구글 시트 (RSVP_URL: 구글 Apps Script 웹 앱 주소. 비어 있으면 섹션 숨김)
-  const RSVP_URL = '';
+  const RSVP_URL = 'https://script.google.com/macros/s/AKfycbw_9CkaX_TmsfA44MN8d0KbOTSAcYCtUfZNSQZVaS_jzmr03v6k52OmyL37stzMLghoqQ/exec';
   if (!RSVP_URL) $('rsvp-sec').style.display = 'none';
   const rf = $('rsvp-form');
   $('rsvp-btn').onclick = () => $('rsvp').showModal();
