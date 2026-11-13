@@ -26,7 +26,7 @@
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:#e9e8e6; font:400 13px/18.2px var(--kr); color:var(--ink); -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent; }
   main { max-width:430px; margin:0 auto; background:var(--white); overflow:clip; }
-  html { scroll-snap-type:y mandatory; }
+  html { scroll-snap-type:y proximity; }
   section, footer { scroll-snap-align:start; }
   section { position:relative; text-align:center; min-height:100svh; }
   .std, .greet, .gift, .rsvp, .heart, .info { display:flex; flex-direction:column; justify-content:center; }
@@ -47,8 +47,11 @@
   #intro .top { position:absolute; top:90px; left:0; right:0; font-size:12px; line-height:14.4px; }
   #intro .nm { position:absolute; top:calc(49% - 12px); left:0; right:0; font-size:20px; line-height:24px; }
   #intro .nm i { font-style:normal; font-size:15px; margin:0 10px; }
-  #intro .sub { position:absolute; top:calc(49% + 17px); left:0; right:0; font-size:12px; line-height:14.4px; opacity:0; transition:opacity .8s ease .5s; }
-  #intro.on .sub { opacity:1; }
+  #intro .sub { position:absolute; top:calc(49% + 17px); left:0; right:0; font-size:12px; line-height:14.4px; }
+  #intro .sub { opacity:0; transition:opacity .8s ease; }
+  #intro .sub.on { opacity:1; }
+  #intro .ch { visibility:hidden; }
+  #intro .ch.on { visibility:visible; }
   #intro .date { position:absolute; top:calc(49% + 311px); left:0; right:0; font-size:12px; line-height:14.4px; }
 
   /* 01 타이틀 (375×700) */
@@ -68,7 +71,8 @@
 
   /* TIME · PLACE · SAVE THE DATE (900px) */
   .std { padding:0; }
-  .std .it { transition:opacity .4s linear; opacity:.25; }
+  .std .it { transition:opacity 1s ease, transform 1s ease; opacity:0; transform:translateY(14px); }
+  .ln { display:block; }
   .std .lb { font:400 12px/16.8px var(--oskon); letter-spacing:-.48px; margin-bottom:10px; }
   .std .tx { font-size:15px; line-height:19.5px; letter-spacing:-.6px; }
   .std .it + .it { margin-top:51px; }
@@ -86,7 +90,7 @@
   .duo img { flex:1; max-width:160px; height:auto; }
 
   /* 03 오시는 길 */
-  .loc { padding:120px 0 0; text-align:left; }
+  .loc { padding:120px 0 env(safe-area-inset-bottom); text-align:left; }
   .loc .hd { margin-left:20px; font-size:30px; line-height:30px; }
   .loc .sub { margin:7px 0 0 20px; font-size:16px; line-height:22.4px; }
   .map { display:block; margin:44px 20px 0; height:313px; overflow:hidden; background:#ddd; }
@@ -370,18 +374,32 @@
 
   // 00 오프닝: 이름 → 0.5초 뒤 감사 문구 → 2초에 위로 살짝 올라가며 사라짐
   const intro = $('intro');
-  requestAnimationFrame(() => intro.classList.add('on'));
+  // 타이핑: 은강 → & → 다인 → (잠시) → 감사 문구
+  const typeIn = (el, start, gap) => {
+    const nodes = [...el.childNodes]; el.innerHTML = '';
+    const chars = [];
+    nodes.forEach(n => {
+      const host = n.nodeType === 3 ? el : el.appendChild(n.cloneNode(false));
+      [...n.textContent].forEach(c => { const sp = document.createElement('span'); sp.className = 'ch'; sp.textContent = c; host.append(sp); chars.push(sp); });
+    });
+    chars.forEach((sp, i) => setTimeout(() => sp.classList.add('on'), start + i * gap));
+    return start + chars.length * gap;
+  };
+  const tEnd = typeIn(intro.querySelector('.nm'), 250, 170);
+  setTimeout(() => intro.querySelector('.sub').classList.add('on'), tEnd + 200);
+  const sEnd = tEnd + 1000;
   const closeIntro = () => intro.classList.add('up', 'hide');
   intro.onclick = closeIntro;
-  setTimeout(closeIntro, 2400);
+  setTimeout(closeIntro, sEnd + 900);
 
-  // TIME · PLACE · SAVE THE DATE: 화면 60% 지점에 온 줄이 가장 밝음, 마지막 줄은 지나간 뒤에도 밝게
+  // TIME · PLACE · SAVE THE DATE: 들어오면 TIME → PLACE → SAVE THE DATE 순서로 나타나고, 앞 줄은 점점 흐려짐
   const its = [...document.querySelectorAll('.std .it')];
-  const lightUp = () => its.forEach((el, i) => {
-    const r = el.getBoundingClientRect(), c = (r.top + r.height / 2) / innerHeight, d = Math.abs(c - .6);
-    el.style.opacity = i === its.length - 1 && c < .6 ? 1 : Math.min(1, Math.max(.25, 1 - (d - .04) / .1));
-  });
-  addEventListener('scroll', lightUp, { passive: true }); lightUp();
+  const STEPS = [[1, 0, 0], [.35, 1, 0], [.2, .5, 1]];
+  let stdDone = false;
+  new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting || stdDone) return; stdDone = true;
+    STEPS.forEach((step, k) => setTimeout(() => its.forEach((el, i) => { if (step[i] || el.style.opacity) { el.style.opacity = step[i]; el.style.transform = 'none'; } }), 300 + k * 1100));
+  }, { threshold: .5 }).observe(document.querySelector('.std'));
 
   // 카운트다운
   const tick = () => {
@@ -441,7 +459,20 @@
   };
 
   // 나타나는 애니메이션
-  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('show')), { threshold: .15 });
+  document.querySelectorAll('p.fade, p.slide').forEach(el => {
+    if (!/<br\s*\/?>/i.test(el.innerHTML)) return;
+    const cls = el.classList.contains('slide') ? 'slide' : 'fade';
+    el.innerHTML = el.innerHTML.split(/<br\s*\/?>/i).map(l => `<span class="ln ${cls}">${l}</span>`).join('');
+    el.classList.remove(cls);
+  });
+  const io = new IntersectionObserver(es => {
+    let k = 0;
+    es.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.style.transitionDelay = (k++ * .22) + 's';
+      e.target.classList.add('show'); io.unobserve(e.target);
+    });
+  }, { threshold: .15 });
   document.querySelectorAll('.fade, .slide').forEach(el => io.observe(el));
 
   // 복사 · 공유 · 맨 위로
