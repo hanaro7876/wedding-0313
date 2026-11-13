@@ -70,9 +70,8 @@
   .hero .sc { bottom:30px; left:0; right:0; font:400 12px/13.5px var(--script); }
 
   /* TIME · PLACE · SAVE THE DATE (900px) */
-  .std { padding:0; }
-  .std .w { display:block; opacity:.22; transition:opacity .9s ease; }
-  .std .w.on { opacity:1; }
+  .std { padding:50svh 0 45svh; scroll-snap-align:none; }
+  .std .w { display:block; opacity:.22; transition:opacity .15s linear; }
   .ln { display:block; }
   .std .lb { font:400 12px/16.8px var(--oskon); letter-spacing:-.48px; margin-bottom:10px; }
   .std .tx { font-size:15px; line-height:19.5px; letter-spacing:-.6px; }
@@ -274,7 +273,7 @@
 
   <!-- 04 GALLERY -->
   <section class="gal">
-    <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/15.jpg" alt=""><b>GALLERY</b><span>사진 보기 +</span></button>
+    <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/gallery-cover.jpg" alt=""><b>GALLERY</b><span>사진 보기 +</span></button>
   </section>
 
   <!-- 05 CALENDAR -->
@@ -401,11 +400,12 @@
     if (tx) { tx.innerHTML = tx.innerHTML.split(/<br\s*\/?>/i).map(l => `<span class="w">${l}</span>`).join(''); lines.push(...tx.querySelectorAll('.w')); }
     if (!lb && !tx) { it.classList.add('w'); lines.push(it); }
   });
-  let stdDone = false;
-  new IntersectionObserver(([e]) => {
-    if (!e.isIntersecting || stdDone) return; stdDone = true;
-    lines.forEach((el, i) => setTimeout(() => el.classList.add('on'), 300 + i * 380));
-  }, { threshold: .5 }).observe(document.querySelector('.std'));
+  // 스크롤: 화면 가운데에 온 줄이 가장 하얗고, 멀어질수록 흐려짐 (마지막 SAVE THE DATE는 지나간 뒤에도 하얗게)
+  const lightUp = () => lines.forEach((el, i) => {
+    const r = el.getBoundingClientRect(), c = (r.top + r.height / 2) / innerHeight, d = Math.abs(c - .5);
+    el.style.opacity = i === lines.length - 1 && c < .5 ? 1 : Math.max(.22, 1 - Math.max(0, d - .03) / .11);
+  });
+  let lt = 0; addEventListener('scroll', () => { cancelAnimationFrame(lt); lt = requestAnimationFrame(lightUp); }, { passive: true }); lightUp();
 
   // 카운트다운
   const tick = () => {
