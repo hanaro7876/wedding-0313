@@ -63,7 +63,7 @@
     background:linear-gradient(rgba(84,82,82,.12), rgba(84,82,82,.12)), linear-gradient(transparent 78%, rgba(56,53,52,.5) 94%, var(--dark)); mix-blend-mode:normal; }
   .hero > p, .hero h1 { z-index:1; }
   .hero > p { position:absolute; }
-  .hero h1 { position:absolute; top:30px; left:0; right:0; font:300 56px/52px var(--oskon); letter-spacing:-2.2px; }
+  .hero h1 { position:absolute; top:30px; left:0; right:0; font:300 50px/46px var(--oskon); letter-spacing:-2px; }
   .hero .c { top:156px; font-size:10px; line-height:14px; }
   .hero .l { left:19px; text-align:left; }
   .hero .r { right:19px; text-align:right; }
@@ -89,7 +89,8 @@
   .parents b { font-weight:400; font-size:15px; line-height:21px; text-align:left; }
   .greet .when { margin-top:23px; font-size:14px; line-height:28px; }
   .duo { display:flex; justify-content:center; align-items:flex-start; gap:10px; margin:40px 20px 0; }
-  .duo img { flex:1; max-width:130px; height:auto; }
+  .duo img { flex:1; max-width:130px; aspect-ratio:3/4; object-fit:cover; object-position:50% 20%; }
+  .duo img:first-child { object-position:50% 100%; } /* 신랑: 앉은 전신이라 아래쪽 위주로 */
   .greet .cd { margin-top:42px; font-size:20px; line-height:20px; }
   .greet .dd { margin-top:12px; font-size:14px; line-height:14px; }
 
@@ -260,6 +261,32 @@
     <p class="dd babel fade">DAYS UNTIL THE WEDDING</p>
   </section>
 
+  <!-- 05 CALENDAR -->
+  <section class="cal">
+    <p class="mon babel fade">3</p>
+    <div class="wk babel fade"><span>28</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><u>13</u></div>
+    <p class="cw babel fade">2027. 3. 13. SAT 5:00PM<br>UNITED WEDDING HALL</p>
+  </section>
+
+  <!-- 07 RSVP & CONTACT -->
+  <section class="rsvp" id="rsvp-sec">
+    <p class="hd babel fade">RSVP</p>
+    <p class="d fade">함께해주실 수 있다면 감사하겠습니다.<br>참석 여부를 알려주세요.</p>
+    <details id="rsvp" class="fade">
+      <summary class="btn">메세지 남기기<b>+</b></summary>
+      <form id="rsvp-form">
+        <label class="f">성함<input name="name" required maxlength="30" autocomplete="name" placeholder="이름"></label>
+        <div class="f">구분<div class="seg"><label><input type="radio" name="side" value="신랑측" required><span>신랑측</span></label><label><input type="radio" name="side" value="신부측"><span>신부측</span></label></div></div>
+        <div class="f">참석 여부<div class="seg"><label><input type="radio" name="attend" value="참석" required><span>참석할게요</span></label><label><input type="radio" name="attend" value="불참"><span>참석이 어려워요</span></label></div></div>
+        <button class="btn submit" type="submit">제출하기</button>
+      </form>
+    </details>
+  </section>
+  <!-- 04 GALLERY -->
+  <section class="gal">
+    <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/gallery-cover.jpg" alt=""><b>GALLERY</b><span>사진 보기 +</span></button>
+  </section>
+
   <!-- 03 LOCATION -->
   <section class="loc dark">
     <p class="hd babel slide">LOCATION</p>
@@ -279,18 +306,6 @@
     <div style="height:120px"></div>
   </section>
 
-  <!-- 04 GALLERY -->
-  <section class="gal">
-    <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/gallery-cover.jpg" alt=""><b>GALLERY</b><span>사진 보기 +</span></button>
-  </section>
-
-  <!-- 05 CALENDAR -->
-  <section class="cal">
-    <p class="mon babel fade">3</p>
-    <div class="wk babel fade"><span>28</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><u>13</u></div>
-    <p class="cw babel fade">2027. 3. 13. SAT 5:00PM<br>UNITED WEDDING HALL</p>
-  </section>
-
   <!-- 06 GIFT -->
   <section class="gift dark">
     <p class="t slide">마음 전하실 곳</p>
@@ -301,20 +316,6 @@
     </div>
   </section>
 
-  <!-- 07 RSVP & CONTACT -->
-  <section class="rsvp" id="rsvp-sec">
-    <p class="hd babel fade">RSVP</p>
-    <p class="d fade">함께해주실 수 있다면 감사하겠습니다.<br>참석 여부를 알려주세요.</p>
-    <details id="rsvp" class="fade">
-      <summary class="btn">메세지 남기기<b>+</b></summary>
-      <form id="rsvp-form">
-        <label class="f">성함<input name="name" required maxlength="30" autocomplete="name" placeholder="이름"></label>
-        <div class="f">구분<div class="seg"><label><input type="radio" name="side" value="신랑측" required><span>신랑측</span></label><label><input type="radio" name="side" value="신부측"><span>신부측</span></label></div></div>
-        <div class="f">참석 여부<div class="seg"><label><input type="radio" name="attend" value="참석" required><span>참석할게요</span></label><label><input type="radio" name="attend" value="불참"><span>참석이 어려워요</span></label></div></div>
-        <button class="btn submit" type="submit">제출하기</button>
-      </form>
-    </details>
-  </section>
   <section class="heart">
     <p class="hd babel fade">WITH OUR WHOLE HEART,</p>
     <p class="d fade">함께해 주신 모든 분들께 진심으로 감사드립니다.<br>이 소중한 마음을 오래 간직하겠습니다.</p>
