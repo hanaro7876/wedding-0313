@@ -53,6 +53,8 @@
   #intro .ch { visibility:hidden; }
   #intro .ch.on { visibility:visible; }
   #intro .date { position:absolute; top:calc(49% + 311px); left:0; right:0; font-size:12px; line-height:14.4px; }
+  #intro .date { opacity:0; transform:translateY(60px); transition:opacity 1s ease, transform 1s cubic-bezier(.2,.7,.2,1); }
+  #intro .date.on { opacity:1; transform:none; }
 
   /* 01 타이틀 (375×700) */
   .hero { height:100svh; min-height:600px; background:var(--dark); color:#fff; overflow:hidden; }
@@ -61,8 +63,8 @@
     background:linear-gradient(rgba(84,82,82,.12), rgba(84,82,82,.12)), linear-gradient(transparent 78%, rgba(56,53,52,.5) 94%, var(--dark)); mix-blend-mode:normal; }
   .hero > p, .hero h1 { z-index:1; }
   .hero > p { position:absolute; }
-  .hero h1 { position:absolute; top:30px; left:0; right:0; font:300 42px/38px var(--oskon); letter-spacing:-1.6px; }
-  .hero .c { top:162px; font-size:10px; line-height:14px; }
+  .hero h1 { position:absolute; top:30px; left:0; right:0; font:300 56px/52px var(--oskon); letter-spacing:-2.2px; }
+  .hero .c { top:156px; font-size:10px; line-height:14px; }
   .hero .l { left:19px; text-align:left; }
   .hero .r { right:19px; text-align:right; }
   .hero .big { bottom:96px; font:300 34px/34px var(--oskon); letter-spacing:-1.3px; }
@@ -87,7 +89,9 @@
   .parents b { font-weight:400; font-size:15px; line-height:21px; text-align:left; }
   .greet .when { margin-top:23px; font-size:14px; line-height:28px; }
   .duo { display:flex; justify-content:center; align-items:flex-start; gap:10px; margin:40px 20px 0; }
-  .duo img { flex:1; max-width:160px; height:auto; }
+  .duo img { flex:1; max-width:130px; height:auto; }
+  .greet .cd { margin-top:42px; font-size:20px; line-height:20px; }
+  .greet .dd { margin-top:12px; font-size:14px; line-height:14px; }
 
   /* 03 오시는 길 */
   .loc { padding:120px 0 env(safe-area-inset-bottom); text-align:left; }
@@ -121,8 +125,7 @@
   .cal .mon { font-size:50px; line-height:45px; }
   .cal .wk { display:grid; grid-template-columns:repeat(7,35px); row-gap:16px; margin-top:24px; font-size:20px; line-height:18px; letter-spacing:-.8px; text-transform:none; }
   .cal .wk u { text-underline-offset:3px; }
-  .cal .cd { margin-top:76px; font-size:20px; line-height:20px; text-transform:none; }
-  .cal .dd { margin-top:14px; font-size:14px; line-height:12.6px; }
+  .cal .cw { margin-top:60px; font-size:13px; line-height:16px; }
 
   /* 06 마음 전하실 곳 */
   .gift { padding:60px 20px; text-align:left; }
@@ -229,6 +232,8 @@
   <section class="hero">
     <img src="main.jpg" alt="최은강 김다인 웨딩 사진">
     <h1>WEDDING<br>INVITATION</h1>
+    <p class="c l">As<br>Two Hearts<br>Become One</p>
+    <p class="c r">We<br>Begin Our<br>Forever</p>
     <p class="big l">Sat<br>March<br>13</p>
     <p class="big r">At<br>5:00<br>P.M.</p>
     <p class="ko l">2027년<br>3월 13일</p>
@@ -251,6 +256,8 @@
     </div>
     <p class="when fade">2027년 3월 13일 토요일 5:00PM<br>서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀, 3층</p>
     <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
+    <p class="cd babel fade" id="cd">00:00:00:00</p>
+    <p class="dd babel fade">DAYS UNTIL THE WEDDING</p>
   </section>
 
   <!-- 03 LOCATION -->
@@ -281,8 +288,7 @@
   <section class="cal">
     <p class="mon babel fade">3</p>
     <div class="wk babel fade"><span>28</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><u>13</u></div>
-    <p class="cd babel fade" id="cd">0 : 00 : 00 : 00</p>
-    <p class="dd babel fade">DAYS UNTIL THE WEDDING</p>
+    <p class="cw babel fade">2027. 3. 13. SAT 5:00PM<br>UNITED WEDDING HALL</p>
   </section>
 
   <!-- 06 GIFT -->
@@ -388,6 +394,7 @@
   };
   const tEnd = typeIn(intro.querySelector('.nm'), 250, 170);
   setTimeout(() => intro.querySelector('.sub').classList.add('on'), tEnd + 200);
+  setTimeout(() => intro.querySelector('.date').classList.add('on'), tEnd + 200); // 날짜: 하단에서 올라옴
   const sEnd = tEnd + 1000;
   const closeIntro = () => intro.classList.add('up', 'hide');
   intro.onclick = closeIntro;
@@ -411,7 +418,7 @@
   // 카운트다운
   const tick = () => {
     const ms = Math.max(0, WEDDING - Date.now()), p = n => String(n).padStart(2, '0');
-    $('cd').textContent = [Math.floor(ms / 864e5), p(Math.floor(ms / 36e5) % 24), p(Math.floor(ms / 6e4) % 60), p(Math.floor(ms / 1e3) % 60)].join(' : ');
+    $('cd').textContent = [p(Math.floor(ms / 864e5)), p(Math.floor(ms / 36e5) % 24), p(Math.floor(ms / 6e4) % 60), p(Math.floor(ms / 1e3) % 60)].join(':');
   };
   tick(); setInterval(tick, 1000);
 
