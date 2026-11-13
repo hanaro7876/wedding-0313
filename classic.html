@@ -71,7 +71,8 @@
 
   /* TIME · PLACE · SAVE THE DATE (900px) */
   .std { padding:0; }
-  .std .it { transition:opacity 1s ease, transform 1s ease; opacity:0; transform:translateY(14px); }
+  .std .w { display:block; opacity:.22; transition:opacity .9s ease; }
+  .std .w.on { opacity:1; }
   .ln { display:block; }
   .std .lb { font:400 12px/16.8px var(--oskon); letter-spacing:-.48px; margin-bottom:10px; }
   .std .tx { font-size:15px; line-height:19.5px; letter-spacing:-.6px; }
@@ -392,13 +393,18 @@
   intro.onclick = closeIntro;
   setTimeout(closeIntro, sEnd + 900);
 
-  // TIME · PLACE · SAVE THE DATE: 들어오면 TIME → PLACE → SAVE THE DATE 순서로 나타나고, 앞 줄은 점점 흐려짐
-  const its = [...document.querySelectorAll('.std .it')];
-  const STEPS = [[1, 0, 0], [.35, 1, 0], [.2, .5, 1]];
+  // TIME · PLACE · SAVE THE DATE: 흐린 글씨가 위에서부터 한 줄씩 하얗게 나타남
+  const lines = [];
+  document.querySelectorAll('.std .it').forEach(it => {
+    const lb = it.querySelector('.lb'), tx = it.querySelector('.tx');
+    if (lb) { lb.classList.add('w'); lines.push(lb); }
+    if (tx) { tx.innerHTML = tx.innerHTML.split(/<br\s*\/?>/i).map(l => `<span class="w">${l}</span>`).join(''); lines.push(...tx.querySelectorAll('.w')); }
+    if (!lb && !tx) { it.classList.add('w'); lines.push(it); }
+  });
   let stdDone = false;
   new IntersectionObserver(([e]) => {
     if (!e.isIntersecting || stdDone) return; stdDone = true;
-    STEPS.forEach((step, k) => setTimeout(() => its.forEach((el, i) => { if (step[i] || el.style.opacity) { el.style.opacity = step[i]; el.style.transform = 'none'; } }), 300 + k * 1100));
+    lines.forEach((el, i) => setTimeout(() => el.classList.add('on'), 300 + i * 380));
   }, { threshold: .5 }).observe(document.querySelector('.std'));
 
   // 카운트다운
