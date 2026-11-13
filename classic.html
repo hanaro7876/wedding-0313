@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>최은강 ♥ 김다인 결혼합니다</title>
+<meta property="og:title" content="최은강 ♥ 김다인 결혼합니다">
+<meta property="og:description" content="2027년 3월 13일 토요일 오후 5시 · 한국기독교연합회관 연합웨딩홀">
+<meta property="og:image" content="https://hanaro7876.github.io/wedding-0313/og.jpg">
+<meta property="og:url" content="https://hanaro7876.github.io/wedding-0313/">
+<meta property="og:type" content="website">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Pinyon+Script&family=Noto+Sans+KR:wght@400;900&display=swap" rel="stylesheet">
+<style>
+  /* 수치는 참고 청첩장(classic-1)을 375px 화면에서 실측한 값 */
+  @font-face { font-family:'Oskon'; src:url(fonts/ZTBrosOskon90s-Light.otf) format('opentype'); font-weight:300; font-display:swap; }
+  @font-face { font-family:'BabelSans'; src:url(fonts/BabelSans.ttf) format('truetype'); font-display:swap; }
+  :root {
+    --dark:#383534; --white:#fcfcfb; --ink:#1f1d1d; --gray:rgba(171,171,171,.6); --btn:#ebebeb; --btn-ink:#545252;
+    --babel:'BabelSans', sans-serif;          /* 영문 산세리프 */
+    --oskon:'Oskon', 'Instrument Serif', serif;        /* 영문 세리프 (ZT Bros Oskon 대체) */
+    --script:'Pinyon Script', cursive;
+    --kr:'Noto Sans KR', sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#e9e8e6; font:400 13px/18.2px var(--kr); color:var(--ink); -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent; }
+  main { max-width:430px; margin:0 auto; background:var(--white); overflow:clip; }
+  html { scroll-snap-type:y mandatory; }
+  section, footer { scroll-snap-align:start; }
+  section { position:relative; text-align:center; min-height:100svh; }
+  .std, .greet, .gift, .rsvp, .heart, .info { display:flex; flex-direction:column; justify-content:center; }
+  .gift { align-items:stretch; }
+  .dark { background:var(--dark); color:#fff; }
+  .babel { font-family:var(--babel); font-weight:500; text-transform:uppercase; }
+  .gray-t { color:var(--gray); }
+  .btn { display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border:none; border-radius:4px; background:var(--btn); color:var(--btn-ink); font:400 13px/18.2px var(--kr); text-decoration:none; cursor:pointer; }
+  .fade { opacity:0; transform:translateY(20px); transition:opacity .9s ease, transform .9s ease; }
+  .slide { opacity:0; transform:translateX(-40px); transition:opacity .9s ease, transform .9s ease; }
+  .fade.show, .slide.show { opacity:1; transform:none; }
+
+  /* 00 오프닝 */
+  #intro { position:fixed; top:0; bottom:0; left:50%; width:min(100%,430px); transform:translateX(-50%); z-index:20; background:var(--dark); color:#fff; text-align:center; transition:opacity .8s ease, visibility .8s; }
+  #intro.hide { opacity:0; visibility:hidden; }
+  #intro .in { position:absolute; inset:0; transition:transform 1s ease; }
+  #intro.up .in { transform:translateY(-30px); }
+  #intro .top { position:absolute; top:90px; left:0; right:0; font-size:12px; line-height:14.4px; }
+  #intro .nm { position:absolute; top:calc(49% - 12px); left:0; right:0; font-size:20px; line-height:24px; }
+  #intro .nm i { font-style:normal; font-size:15px; margin:0 10px; }
+  #intro .sub { position:absolute; top:calc(49% + 17px); left:0; right:0; font-size:12px; line-height:14.4px; opacity:0; transition:opacity .8s ease .5s; }
+  #intro.on .sub { opacity:1; }
+  #intro .date { position:absolute; top:calc(49% + 311px); left:0; right:0; font-size:12px; line-height:14.4px; }
+
+  /* 01 타이틀 (375×700) */
+  .hero { height:100svh; min-height:600px; background:var(--dark); color:#fff; overflow:hidden; }
+  .hero > img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(1) contrast(.9) brightness(1.02); }
+  .hero::after { content:''; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(rgba(84,82,82,.12), rgba(84,82,82,.12)), linear-gradient(transparent 78%, rgba(56,53,52,.5) 94%, var(--dark)); mix-blend-mode:normal; }
+  .hero > p, .hero h1 { z-index:1; }
+  .hero > p { position:absolute; }
+  .hero h1 { position:absolute; top:30px; left:0; right:0; font:300 42px/38px var(--oskon); letter-spacing:-1.6px; }
+  .hero .c { top:162px; font-size:10px; line-height:14px; }
+  .hero .l { left:19px; text-align:left; }
+  .hero .r { right:19px; text-align:right; }
+  .hero .big { bottom:96px; font:300 34px/34px var(--oskon); letter-spacing:-1.3px; }
+  .hero .ko { bottom:30px; font:900 9px/13px 'Pretendard Variable', var(--kr); }
+  .hero .sc { bottom:30px; left:0; right:0; font:400 12px/13.5px var(--script); }
+
+  /* TIME · PLACE · SAVE THE DATE (900px) */
+  .std { padding:0; }
+  .std .it { transition:opacity .4s linear; opacity:.25; }
+  .std .lb { font:400 12px/16.8px var(--oskon); letter-spacing:-.48px; margin-bottom:10px; }
+  .std .tx { font-size:15px; line-height:19.5px; letter-spacing:-.6px; }
+  .std .it + .it { margin-top:51px; }
+  .std .save { font:400 38px/53.2px var(--oskon); letter-spacing:-1.52px; margin-top:44px !important; }
+
+  /* 02 인사말 */
+  .greet { padding:60px 0; }
+  .ornament { display:block; margin:0 auto 40px; width:48px; height:36px; font:400 24px/36px var(--script); }
+  .greet .msg { font-size:14px; line-height:28px; }
+  .parents { margin-top:31px; display:grid; grid-template-columns:auto auto; justify-content:center; column-gap:18px; row-gap:5px; align-items:center; }
+  .parents span { font-size:12px; line-height:16.8px; text-align:right; }
+  .parents b { font-weight:400; font-size:15px; line-height:21px; text-align:left; }
+  .greet .when { margin-top:23px; font-size:14px; line-height:28px; }
+  .duo { display:flex; justify-content:center; align-items:flex-start; gap:10px; margin:40px 20px 0; }
+  .duo img { flex:1; max-width:160px; height:auto; }
+
+  /* 03 오시는 길 */
+  .loc { padding:120px 0 0; text-align:left; }
+  .loc .hd { margin-left:20px; font-size:30px; line-height:30px; }
+  .loc .sub { margin:7px 0 0 20px; font-size:16px; line-height:22.4px; }
+  .map { display:block; margin:44px 20px 0; height:313px; overflow:hidden; background:#ddd; }
+  .map img { width:100%; height:100%; object-fit:cover; }
+  .rows { margin:0 20px; }
+  .rows > div { display:grid; grid-template-columns:60px 1fr; padding:16px 0 20px; border-bottom:1px solid rgba(255,255,255,.18); }
+  .rows > div:last-child { border:none; }
+  .rows dt { font-size:12px; line-height:16.8px; }
+  .rows dd { font-size:13px; line-height:18.2px; }
+  .navs { display:flex; justify-content:flex-end; gap:6px; margin:22px 20px 0; }
+  .navs .btn::after { content:'↗'; font-size:11px; }
+
+  /* 04 갤러리 (375×650) */
+  .gal { padding:0; }
+  #gal-cover { position:relative; display:block; width:100%; height:100svh; min-height:600px; padding:0; border:none; cursor:pointer; background:var(--dark); }
+  #gal-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+  #gal-cover span { position:absolute; left:50%; bottom:44px; transform:translateX(-50%); padding:7px 16px; border-radius:4px; background:rgba(235,235,235,.92); color:var(--btn-ink); font:400 13px/18px var(--kr); white-space:nowrap; }
+  #gal-cover b { position:absolute; left:0; right:0; top:48px; color:#fff; font:500 30px/1 var(--babel); text-shadow:0 1px 8px rgba(0,0,0,.25); }
+  #gal-view { position:fixed; inset:0; z-index:24; background:var(--white); overflow-y:auto; display:none; }
+  #gal-view.on { display:block; }
+  #gal-view .hd { position:sticky; top:0; z-index:1; display:flex; justify-content:center; align-items:center; height:56px; background:rgba(252,252,251,.94); font:500 18px var(--babel); color:var(--ink); }
+  #gal-view .hd button { position:absolute; right:12px; width:40px; height:40px; border:none; background:none; font-size:18px; color:var(--ink); cursor:pointer; }
+  #gallery { max-width:430px; margin:0 auto; display:grid; gap:4px; padding:0 0 40px; }
+  #gallery img { display:block; width:100%; height:auto; cursor:zoom-in; background:#e9e7e3; }
+
+  /* 05 달력 */
+  .cal { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:80px 0; }
+  .cal .mon { font-size:50px; line-height:45px; }
+  .cal .wk { display:grid; grid-template-columns:repeat(7,35px); row-gap:16px; margin-top:24px; font-size:20px; line-height:18px; letter-spacing:-.8px; text-transform:none; }
+  .cal .wk u { text-underline-offset:3px; }
+  .cal .cd { margin-top:76px; font-size:20px; line-height:20px; text-transform:none; }
+  .cal .dd { margin-top:14px; font-size:14px; line-height:12.6px; }
+
+  /* 06 마음 전하실 곳 */
+  .gift { padding:60px 20px; text-align:left; }
+  .gift .t { font-size:20px; line-height:28px; }
+  .gift .d { margin-top:16px; font-size:14px; line-height:19.6px; }
+  .accs { margin-top:64px; border-top:1px solid rgba(255,255,255,.18); }
+  .acc { border-bottom:1px solid rgba(255,255,255,.18); }
+  .acc summary { list-style:none; display:flex; justify-content:space-between; padding:22px 13px; font-size:16px; line-height:22.4px; cursor:pointer; }
+  .acc summary::-webkit-details-marker { display:none; }
+  .acc summary::after { content:'···'; letter-spacing:2px; }
+  .acc .row { display:flex; justify-content:space-between; align-items:center; padding:0 13px 18px; }
+  .acc .row small { display:block; font-size:10px; line-height:14px; color:var(--gray); }
+  .acc .row span { font-size:13px; line-height:18.2px; }
+  .acc .row .btn { padding:2px 8px; font-size:11px; background:#fff; }
+
+  /* 07 RSVP & 연락 */
+  .rsvp { padding:60px 28px; }
+  .rsvp .hd { font-size:30px; line-height:42px; }
+  .rsvp .d { margin-top:7px; }
+  #rsvp { margin-top:57px; }
+  #rsvp > summary { list-style:none; font-size:16px; line-height:22.4px; color:var(--ink); padding:5px 12px; }
+  #rsvp > summary::-webkit-details-marker { display:none; }
+  #rsvp > summary b { font-weight:300; font-size:20px; margin-left:4px; display:inline-block; transition:.2s; }
+  #rsvp[open] > summary b { transform:rotate(45deg); }
+  #rsvp form { margin-top:24px; text-align:center; }
+  #rsvp .f { display:block; margin-bottom:14px; font-size:12px; color:#9a9797; }
+  #rsvp input[name=name] { display:block; width:100%; margin-top:4px; padding:10px 2px; border:none; border-bottom:1px solid #e3e1df; background:transparent; font:400 14px var(--kr); color:var(--ink); outline:none; }
+  #rsvp .seg { display:flex; gap:6px; margin-top:6px; }
+  #rsvp .seg label { flex:1; }
+  #rsvp .seg input { position:absolute; opacity:0; pointer-events:none; }
+  #rsvp .seg span { display:block; padding:9px 0; text-align:center; border-radius:4px; background:var(--btn); color:var(--btn-ink); font-size:13px; cursor:pointer; }
+  #rsvp .seg input:checked + span { background:var(--dark); color:#fff; }
+  #rsvp .seg input:focus-visible + span { outline:2px solid var(--ink); }
+  #rsvp .submit { width:100%; justify-content:center; padding:11px; margin-top:6px; }
+  #rsvp .submit:disabled { opacity:.6; }
+  .heart { padding:60px 28px; }
+  .heart .hd { font-size:23px; line-height:32.2px; }
+  .heart .d { margin-top:7px; }
+  .heart .btns { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:47px; }
+  .heart .end { margin-top:47px; }
+
+  /* INFO · 푸터 */
+  .info { padding:60px 28px; }
+  .info .hd { font-size:30px; line-height:42px; }
+  .info .tx { margin-top:53px; }
+  .info .dot { font-size:14px; line-height:19.6px; margin:10px 0; }
+  .share { margin-top:110px; font-size:14px; padding:6px 13px; }
+  footer { scroll-snap-align:end; margin-top:0; padding:22px 0 30px; border-top:1px solid #ececec; font-size:10px; line-height:14px; letter-spacing:.8px; color:var(--gray); text-align:center; }
+
+  /* 고정 버튼: 음악 · 맨 위로 */
+  .fab { position:fixed; right:max(12px, calc(50% - 203px)); width:30px; height:30px; border:none; border-radius:50%; background:rgba(235,235,235,.9); color:#383534; font-size:12px; cursor:pointer; z-index:9; display:flex; align-items:center; justify-content:center; }
+  #bgm-btn { top:14px; }
+  #top-btn { bottom:20px; font-size:14px; }
+
+  /* 팝업 · 사진 크게 보기 · 알림 */
+  dialog { margin:auto; width:min(88vw,340px); border:none; border-radius:8px; padding:28px 24px; background:var(--white); color:var(--ink); }
+  dialog::backdrop { background:rgba(20,18,18,.5); }
+  dialog h3 { font:500 18px var(--babel); text-align:center; margin-bottom:16px; }
+  dialog h4 { font-weight:400; color:#9a9797; margin:14px 0 4px; font-size:12px; }
+  .ct { display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; }
+  .ct span { color:#9a9797; margin-right:8px; }
+  .ct a { display:inline-flex; width:30px; height:30px; margin-left:6px; border-radius:50%; background:var(--btn); color:var(--btn-ink); align-items:center; justify-content:center; text-decoration:none; }
+  dialog .close { display:flex; margin:18px auto 0; }
+  #rsvp-pop { position:relative; text-align:center; padding:36px 24px 22px; }
+  #rsvp-pop .x { position:absolute; top:8px; right:8px; width:36px; height:36px; border:none; background:none; font-size:16px; color:var(--ink); cursor:pointer; }
+  #rsvp-pop .t { outline:none; font:400 17px var(--kr); margin-bottom:12px; }
+  #rsvp-pop .msg { line-height:1.8; padding-bottom:18px; border-bottom:1px solid #eee; }
+  #rsvp-pop .info { list-style:none; padding:16px 0 0; text-align:center; }
+  #rsvp-pop .info li { margin-bottom:8px; }
+  #rsvp-pop .go { width:100%; justify-content:center; margin-top:12px; padding:11px; background:var(--dark); color:#fff; }
+  #rsvp-pop .skip { display:inline-flex; align-items:center; gap:6px; margin-top:14px; font-size:12px; color:#9a9797; cursor:pointer; }
+  #lightbox { position:fixed; inset:0; z-index:25; background:rgba(20,16,14,.95); display:none; align-items:center; justify-content:center; }
+  #lightbox.on { display:flex; }
+  #lightbox img { max-width:min(100%,430px); max-height:82vh; }
+  #lightbox button { position:absolute; background:none; border:none; color:#fff; font-size:28px; padding:12px 16px; cursor:pointer; }
+  #lb-close { top:8px; right:4px; }
+  #lb-prev { left:0; top:50%; transform:translateY(-50%); }
+  #lb-next { right:0; top:50%; transform:translateY(-50%); }
+  #lb-num { position:absolute; bottom:24px; color:#ccc; font:500 12px var(--babel); letter-spacing:1px; }
+  #toast { position:fixed; bottom:60px; left:50%; transform:translateX(-50%); background:rgba(0,0,0,.7); color:#fff; padding:7px 16px; border-radius:20px; font-size:12px; opacity:0; transition:.3s; pointer-events:none; z-index:30; }
+  #toast.show { opacity:1; }
+  /* 참석 의사: 전부 가운데 정렬 */
+  #rsvp input[name=name] { text-align:center; }
+  #rsvp-pop, #rsvp-pop .msg, #rsvp-pop .info { text-align:center; }
+</style>
+</head>
+<body>
+
+<div id="intro">
+  <div class="in">
+    <p class="top babel">EUNGANG<br>AND DAIN</p>
+    <p class="nm">은강<i>&amp;</i>다인</p>
+    <p class="sub">늘 따뜻한 마음에 감사드립니다</p>
+    <p class="date babel">2027. 3. 13&nbsp; SAT 5:00PM<br>UNITED WEDDING HALL</p>
+  </div>
+</div>
+<button class="fab" id="bgm-btn" aria-label="배경음악 켜기/끄기">▶</button>
+<button class="fab" id="top-btn" aria-label="맨 위로">↑</button>
+<audio id="bgm" src="bgm.m4a" loop preload="none"></audio>
+
+<main>
+  <!-- 01 TITLE -->
+  <section class="hero">
+    <img src="main.jpg" alt="최은강 김다인 웨딩 사진">
+    <h1>WEDDING<br>INVITATION</h1>
+    <p class="big l">Sat<br>March<br>13</p>
+    <p class="big r">At<br>5:00<br>P.M.</p>
+    <p class="ko l">2027년<br>3월 13일</p>
+    <p class="ko r">토요일<br>오후 5시</p>
+    <p class="sc">We Are Grateful For Every Step<br>That Led Us to This Day</p>
+  </section>
+  <section class="std dark">
+    <div class="it"><p class="lb">TIME</p><p class="tx">2027년 3월 13일<br>토요일 5:00PM</p></div>
+    <div class="it"><p class="lb">PLACE</p><p class="tx" style="letter-spacing:0;line-height:21px">서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀</p></div>
+    <div class="it save">SAVE THE DATE</div>
+  </section>
+
+  <!-- 02 INVITATION -->
+  <section class="greet">
+    <span class="ornament fade" aria-hidden="true">E&amp;D</span>
+    <p class="msg fade">서로 다른 길을 걸어온 두 사람이<br>이제 같은 곳을 바라보며 한 길을 걸어가려 합니다.<br>바쁘신 중에도 오셔서 축복해 주신다면<br>그 마음 오래 간직하며 감사히 기억하겠습니다.</p>
+    <div class="parents fade">
+      <span>최병희 · 구인숙의 아들</span><b>최은강</b>
+      <span>김승봉 · 권태은의 딸</span><b>김다인</b>
+    </div>
+    <p class="when fade">2027년 3월 13일 토요일 5:00PM<br>서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀, 3층</p>
+    <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
+  </section>
+
+  <!-- 03 LOCATION -->
+  <section class="loc dark">
+    <p class="hd babel slide">LOCATION</p>
+    <p class="sub gray-t slide">오시는 길</p>
+    <a class="map fade" target="_blank" href="https://map.naver.com/p/search/한국기독교연합회관 연합웨딩홀"><img src="map.jpg" alt="네이버 지도: 한국기독교연합회관 위치"></a>
+    <dl class="rows fade">
+      <div><dt>지하철</dt><dd>1호선 종로5가역 2번 출구<br>도보 5분 거리</dd></div>
+      <div><dt>버스</dt><dd>종로5가.효제초등학교 · 종로5가.광장시장 하차</dd></div>
+      <div><dt>자가용</dt><dd>건물 내 주차장 2시간 무료</dd></div>
+      <div><dt>주소</dt><dd>서울 종로구 김상옥로 30 한국기독교연합회관 3층 연합웨딩홀<br><a href="tel:02-708-4040" style="color:inherit;text-decoration:none">02 708 4040</a></dd></div>
+    </dl>
+    <div class="navs fade">
+      <a class="btn" target="_blank" href="https://map.naver.com/p/search/한국기독교연합회관 연합웨딩홀">네이버 지도</a>
+      <a class="btn" target="_blank" href="https://map.kakao.com/?q=서울 종로구 김상옥로 30">카카오맵</a>
+      <a class="btn" target="_blank" href="https://tmap.life/search?name=한국기독교연합회관">티맵</a>
+    </div>
+    <div style="height:120px"></div>
+  </section>
+
+  <!-- 04 GALLERY -->
+  <section class="gal">
+    <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/15.jpg" alt=""><b>GALLERY</b><span>사진 보기 +</span></button>
+  </section>
+
+  <!-- 05 CALENDAR -->
+  <section class="cal">
+    <p class="mon babel fade">3</p>
+    <div class="wk babel fade"><span>28</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><u>13</u></div>
+    <p class="cd babel fade" id="cd">0 : 00 : 00 : 00</p>
+    <p class="dd babel fade">DAYS UNTIL THE WEDDING</p>
+  </section>
+
+  <!-- 06 GIFT -->
+  <section class="gift dark">
+    <p class="t slide">마음 전하실 곳</p>
+    <p class="d gray-t slide">참석이 어려우신 분들을 위해 계좌번호를 기재하였습니다.<br>너그러운 마음으로 양해 부탁드립니다.</p>
+    <div class="accs fade">
+      <details class="acc" id="acc-groom"><summary>신랑측 계좌번호 확인하기</summary></details>
+      <details class="acc" id="acc-bride"><summary>신부측 계좌번호 확인하기</summary></details>
+    </div>
+  </section>
+
+  <!-- 07 RSVP & CONTACT -->
+  <section class="rsvp" id="rsvp-sec">
+    <p class="hd babel fade">RSVP</p>
+    <p class="d fade">함께해주실 수 있다면 감사하겠습니다.<br>참석 여부를 알려주세요.</p>
+    <details id="rsvp" class="fade">
+      <summary class="btn">메세지 남기기<b>+</b></summary>
+      <form id="rsvp-form">
+        <label class="f">성함<input name="name" required maxlength="30" autocomplete="name" placeholder="이름"></label>
+        <div class="f">구분<div class="seg"><label><input type="radio" name="side" value="신랑측" required><span>신랑측</span></label><label><input type="radio" name="side" value="신부측"><span>신부측</span></label></div></div>
+        <div class="f">참석 여부<div class="seg"><label><input type="radio" name="attend" value="참석" required><span>참석할게요</span></label><label><input type="radio" name="attend" value="불참"><span>참석이 어려워요</span></label></div></div>
+        <button class="btn submit" type="submit">제출하기</button>
+      </form>
+    </details>
+  </section>
+  <section class="heart">
+    <p class="hd babel fade">WITH OUR WHOLE HEART,</p>
+    <p class="d fade">함께해 주신 모든 분들께 진심으로 감사드립니다.<br>이 소중한 마음을 오래 간직하겠습니다.</p>
+    <div class="btns fade">
+      <button class="btn" id="call-groom">신랑에게 연락하기</button>
+      <button class="btn" id="call-bride">신부에게 연락하기</button>
+    </div>
+    <p class="end fade">소중한 분들과 함께할 이 날을<br>마음 깊이 기다리고 있겠습니다.</p>
+  </section>
+
+  <section class="info">
+    <p class="hd babel fade">INFO</p>
+    <div class="fade">
+      <p class="tx">예식 후 같은 건물 연회장에서<br>식사가 준비되어 있습니다.</p>
+      <p class="dot">·</p>
+      <p>건물 내 주차장을 2시간 무료로 이용하실 수 있습니다.<br>혼잡할 수 있으니 대중교통 이용을 권해드립니다.</p>
+    </div>
+    <button class="btn share fade" id="share">청첩장 링크 복사하기</button>
+  </section>
+  <footer class="babel">© EUNGANG &amp; DAIN. WITH LOVE.</footer>
+</main>
+
+<dialog id="rsvp-pop">
+  <button class="x" aria-label="닫기" onclick="this.closest('dialog').close()">✕</button>
+  <h3 class="t" tabindex="-1" autofocus>참석 의사 전달</h3>
+  <p class="msg">축하의 마음으로 참석해 주시는<br>모든 분들을 귀하게 모실 수 있도록<br>참석 의사를 전달 부탁드립니다.</p>
+  <ul class="info">
+    <li>신랑 최은강 &amp; 신부 김다인</li>
+    <li>2027년 3월 13일 토요일 오후 5시</li>
+    <li>한국기독교연합회관 3층 연합웨딩홀</li>
+  </ul>
+  <button class="btn go" id="pop-go">참석 의사 전달하기</button>
+  <label class="skip"><input type="checkbox" id="pop-skip"><span>오늘 하루 보지 않기</span></label>
+</dialog>
+<dialog id="contact">
+  <h3>CONTACT</h3>
+  <div id="contact-list"></div>
+  <button class="btn close" onclick="this.closest('dialog').close()">닫기</button>
+</dialog>
+<div id="gal-view"><div class="hd">GALLERY<button id="gal-close" aria-label="닫기">✕</button></div><div id="gallery"></div></div>
+<div id="lightbox"><button id="lb-close" aria-label="닫기">✕</button><button id="lb-prev" aria-label="이전">‹</button><img alt=""><button id="lb-next" aria-label="다음">›</button><span id="lb-num"></span></div>
+<div id="toast"></div>
+
+<script>
+  // ===== 여기만 고치면 됨 =====
+  const WEDDING = new Date('2027-03-13T17:00:00+09:00');
+  const P = n => `photos/${String(n).padStart(2, '0')}.jpg`;
+  const PHOTOS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(P);
+  // [역할, 이름, 전화, 계좌] — 빈칸('')이면 화면에서 숨김
+  const PEOPLE = {
+    groom: [['신랑', '최은강', '', 'IBK기업은행 980-001455-01-019'],
+            ['아버지', '최병희', '', ''],
+            ['어머니', '구인숙', '', '']],
+    bride: [['신부', '김다인', '', '카카오뱅크 3333-22-0032879'],
+            ['아버지', '김승봉', '', ''],
+            ['어머니', '권태은', '', '']],
+  };
+  const RSVP_URL = 'https://script.google.com/macros/s/AKfycbw_9CkaX_TmsfA44MN8d0KbOTSAcYCtUfZNSQZVaS_jzmr03v6k52OmyL37stzMLghoqQ/exec';
+  // ==========================
+
+  const $ = id => document.getElementById(id);
+  const toast = msg => { const t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1500); };
+  const copy = text => navigator.clipboard.writeText(text).then(() => toast('복사되었습니다'), () => toast('복사에 실패했어요'));
+
+  // 00 오프닝: 이름 → 0.5초 뒤 감사 문구 → 2초에 위로 살짝 올라가며 사라짐
+  const intro = $('intro');
+  requestAnimationFrame(() => intro.classList.add('on'));
+  const closeIntro = () => intro.classList.add('up', 'hide');
+  intro.onclick = closeIntro;
+  setTimeout(closeIntro, 2400);
+
+  // TIME · PLACE · SAVE THE DATE: 화면 60% 지점에 온 줄이 가장 밝음, 마지막 줄은 지나간 뒤에도 밝게
+  const its = [...document.querySelectorAll('.std .it')];
+  const lightUp = () => its.forEach((el, i) => {
+    const r = el.getBoundingClientRect(), c = (r.top + r.height / 2) / innerHeight, d = Math.abs(c - .6);
+    el.style.opacity = i === its.length - 1 && c < .6 ? 1 : Math.min(1, Math.max(.25, 1 - (d - .04) / .1));
+  });
+  addEventListener('scroll', lightUp, { passive: true }); lightUp();
+
+  // 카운트다운
+  const tick = () => {
+    const ms = Math.max(0, WEDDING - Date.now()), p = n => String(n).padStart(2, '0');
+    $('cd').textContent = [Math.floor(ms / 864e5), p(Math.floor(ms / 36e5) % 24), p(Math.floor(ms / 6e4) % 60), p(Math.floor(ms / 1e3) % 60)].join(' : ');
+  };
+  tick(); setInterval(tick, 1000);
+
+  // 갤러리 + 크게 보기
+  const g = $('gallery'); let cur = 0;
+  PHOTOS.forEach((src, i) => { const img = new Image(); img.src = src; img.alt = ''; img.onclick = () => openLb(i); g.append(img); });
+  const gv = $('gal-view');
+  $('gal-cover').onclick = () => { gv.classList.add('on'); gv.scrollTop = 0; document.documentElement.style.overflow = 'hidden'; };
+  $('gal-close').onclick = () => { gv.classList.remove('on'); document.documentElement.style.overflow = ''; };
+  const lb = $('lightbox'), lbImg = lb.querySelector('img');
+  const show = n => { cur = (n + PHOTOS.length) % PHOTOS.length; lbImg.src = PHOTOS[cur]; $('lb-num').textContent = `${cur + 1} / ${PHOTOS.length}`; };
+  const openLb = i => { lb.classList.add('on'); show(i); };
+  $('lb-close').onclick = () => lb.classList.remove('on');
+  $('lb-prev').onclick = () => show(cur - 1);
+  $('lb-next').onclick = () => show(cur + 1);
+  let sx = 0;
+  lb.addEventListener('touchstart', e => sx = e.touches[0].clientX);
+  lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); });
+
+  // 계좌 · 연락처 (PEOPLE에서 생성)
+  for (const [id, list] of [['acc-groom', PEOPLE.groom], ['acc-bride', PEOPLE.bride]])
+    if (!list.some(p => p[3])) $(id).remove(); else
+    $(id).insertAdjacentHTML('beforeend', list.filter(p => p[3]).map(([role, name, , acc]) =>
+      `<div class="row"><div><small>${role}</small><span>${name}&nbsp; ${acc}</span></div><button class="btn" data-copy="${acc}">복사</button></div>`).join(''));
+  const contactOf = (title, list) => { const l = list.filter(p => p[2]); if (!l.length) return false;
+    $('contact-list').innerHTML = `<h4>${title}</h4>` + l.map(([role, name, tel]) =>
+      `<div class="ct"><div><span>${role}</span>${name}</div><div><a href="tel:${tel}" aria-label="전화">☎</a><a href="sms:${tel}" aria-label="문자">✉</a></div></div>`).join('');
+    $('contact').showModal(); return true; };
+  $('call-groom').onclick = () => contactOf('신랑측', PEOPLE.groom);
+  $('call-bride').onclick = () => contactOf('신부측', PEOPLE.bride);
+  if (!PEOPLE.groom.some(p => p[2])) $('call-groom').remove();
+  if (!PEOPLE.bride.some(p => p[2])) $('call-bride').remove();
+
+  // 참석 의사 → 구글 시트
+  if (!RSVP_URL) $('rsvp').style.display = 'none';
+  const rf = $('rsvp-form');
+  const SKIP_KEY = 'rsvp-pop-skip-until';
+  let skipUntil = 0; try { skipUntil = +localStorage.getItem(SKIP_KEY) || 0; } catch {}
+  const pop = $('rsvp-pop');
+  pop.addEventListener('close', () => { if ($('pop-skip').checked) try { localStorage.setItem(SKIP_KEY, Date.now() + 864e5); } catch {} });
+  $('pop-go').onclick = () => { pop.close(); $('rsvp').open = true; $('rsvp-sec').scrollIntoView({ behavior: 'smooth' }); };
+  if (RSVP_URL && Date.now() < WEDDING && Date.now() > skipUntil)
+    setTimeout(() => !pop.open && !$('rsvp').open && !lb.classList.contains('on') && !gv.classList.contains('on') && pop.showModal(), 4000);
+  rf.onsubmit = async e => {
+    e.preventDefault();
+    const btn = rf.querySelector('.submit'); btn.disabled = true; btn.textContent = '전달 중…';
+    try {
+      await fetch(RSVP_URL, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(new FormData(rf)) });
+      $('rsvp').open = false; rf.reset(); toast('전달되었습니다. 감사합니다!');
+    } catch { toast('전송에 실패했어요. 잠시 후 다시 시도해 주세요.'); }
+    btn.disabled = false; btn.textContent = '제출하기';
+  };
+
+  // 나타나는 애니메이션
+  const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('show')), { threshold: .15 });
+  document.querySelectorAll('.fade, .slide').forEach(el => io.observe(el));
+
+  // 복사 · 공유 · 맨 위로
+  document.addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (b) copy(b.dataset.copy); });
+  $('share').onclick = () => copy(location.href);
+  $('top-btn').onclick = () => scrollTo({ top: 0, behavior: 'smooth' });
+  // 첫 화면에서는 ↑ 버튼 숨김 (날짜 글씨 가리지 않게)
+  const topBtn = $('top-btn'), topVis = () => topBtn.style.display = scrollY > innerHeight * .5 ? '' : 'none';
+  addEventListener('scroll', topVis, { passive: true }); topVis();
+
+  // 배경음악: 첫 터치 때 재생 시작, 버튼으로 켜고 끄기
+  const bgm = $('bgm'), bgmBtn = $('bgm-btn');
+  bgm.volume = .5;
+  bgm.onplay = bgm.onpause = () => bgmBtn.textContent = bgm.paused ? '▶' : '❚❚';
+  bgmBtn.onclick = () => bgm.paused ? bgm.play().catch(() => {}) : bgm.pause();
+  document.addEventListener('pointerdown', e => e.target !== bgmBtn && bgm.play().catch(() => {}), { once: true });
+</script>
+</body>
+</html>

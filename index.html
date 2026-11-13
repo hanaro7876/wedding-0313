@@ -210,7 +210,7 @@
   <div class="foot"><span>SAT, MARCH 13</span><span>5 PM</span></div>
 </div>
 <button id="bgm-btn" aria-label="배경음악 켜기/끄기">♪</button>
-<audio id="bgm" src="bgm.mp3" loop></audio>
+<audio id="bgm" src="bgm.m4a" loop preload="none"></audio>
 
 <main>
   <section class="cover">
@@ -504,9 +504,13 @@
   document.querySelectorAll('[data-copy]').forEach(b => b.onclick = () => copy(b.dataset.copy));
   $('share').onclick = () => copy(location.href);
 
-  // 배경음악 (같은 폴더에 bgm.mp3를 넣으면 동작)
-  const bgm = $('bgm');
-  $('bgm-btn').onclick = () => bgm.paused ? bgm.play().catch(() => toast('bgm.mp3 파일이 없어요')) : bgm.pause();
+  // 배경음악: 첫 터치 때 재생 시작(브라우저는 터치 없이 자동재생 불가), ♪ 버튼으로 켜고 끄기
+  const bgm = $('bgm'), bgmBtn = $('bgm-btn');
+  bgm.volume = .5;
+  bgm.onplay = bgm.onpause = () => bgmBtn.style.opacity = bgm.paused ? .5 : 1;
+  bgmBtn.onclick = () => bgm.paused ? bgm.play().catch(() => {}) : bgm.pause();
+  document.addEventListener('pointerdown', e => e.target !== bgmBtn && bgm.play().catch(() => {}), { once: true });
+  bgmBtn.style.opacity = .5;
 </script>
 </body>
 </html>
