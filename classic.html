@@ -70,6 +70,9 @@
   .hero .big { bottom:96px; font:300 34px/34px var(--oskon); letter-spacing:-1.3px; }
   .hero .ko { bottom:30px; font:900 9px/13px 'Pretendard Variable', var(--kr); }
   .hero .sc { bottom:30px; left:0; right:0; font:400 12px/13.5px var(--script); }
+  .hero .big, .hero .ko, .hero .sc { opacity:0; transform:translateY(50px); transition:opacity 1s ease, transform 1.1s cubic-bezier(.2,.7,.2,1); }
+  .hero .ko, .hero .sc { transition-delay:.25s; }
+  .hero.on .big, .hero.on .ko, .hero.on .sc { opacity:1; transform:none; }
 
   /* TIME · PLACE · SAVE THE DATE (900px) */
   .std { padding:50svh 0 45svh; scroll-snap-align:none; }
@@ -397,7 +400,7 @@
   setTimeout(() => intro.querySelector('.sub').classList.add('on'), tEnd + 200);
   setTimeout(() => intro.querySelector('.date').classList.add('on'), tEnd + 200); // 날짜: 하단에서 올라옴
   const sEnd = tEnd + 1000;
-  const closeIntro = () => intro.classList.add('up', 'hide');
+  const closeIntro = () => { intro.classList.add('up', 'hide'); document.querySelector('.hero').classList.add('on'); }; // 히어로 하단 글씨 올라옴
   intro.onclick = closeIntro;
   setTimeout(closeIntro, sEnd + 900);
 
