@@ -75,7 +75,7 @@
   .hero.on .big, .hero.on .ko, .hero.on .sc { opacity:1; transform:none; }
 
   /* TIME · PLACE · SAVE THE DATE (900px) */
-  .std { padding:50svh 0 45svh; scroll-snap-align:none; }
+  .std { padding:30svh 0 30svh; scroll-snap-align:none; }
   .std .w { display:block; opacity:.22; transition:opacity .15s linear; }
   .ln { display:block; }
   .std .lb { font:400 12px/16.8px var(--oskon); letter-spacing:-.48px; margin-bottom:10px; }
@@ -98,7 +98,7 @@
   .greet .dd { margin-top:12px; font-size:14px; line-height:14px; }
 
   /* 03 오시는 길 */
-  .loc { padding:120px 0 env(safe-area-inset-bottom); text-align:left; }
+  .loc { min-height:auto; padding:100px 0 0; text-align:left; }
   .loc .hd { margin-left:20px; font-size:30px; line-height:30px; }
   .loc .sub { margin:7px 0 0 20px; font-size:16px; line-height:22.4px; }
   .map { display:block; margin:44px 20px 0; height:313px; overflow:hidden; background:#ddd; }
@@ -132,7 +132,7 @@
   .cal .cw { margin-top:60px; font-size:13px; line-height:16px; }
 
   /* 06 마음 전하실 곳 */
-  .gift { padding:60px 20px; text-align:left; }
+  .gift { min-height:auto; padding:100px 20px; text-align:left; }
   .gift .t { font-size:20px; line-height:28px; }
   .gift .d { margin-top:16px; font-size:14px; line-height:19.6px; }
   .accs { margin-top:64px; border-top:1px solid rgba(255,255,255,.18); }
@@ -165,14 +165,14 @@
   #rsvp .seg input:focus-visible + span { outline:2px solid var(--ink); }
   #rsvp .submit { width:100%; justify-content:center; padding:11px; margin-top:6px; }
   #rsvp .submit:disabled { opacity:.6; }
-  .heart { padding:60px 28px; }
+  .heart { min-height:auto; padding:100px 28px; }
   .heart .hd { font-size:23px; line-height:32.2px; }
   .heart .d { margin-top:7px; }
   .heart .btns { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:47px; }
   .heart .end { margin-top:47px; }
 
   /* INFO · 푸터 */
-  .info { padding:60px 28px; }
+  .info { min-height:auto; padding:80px 28px 100px; }
   .info .hd { font-size:30px; line-height:42px; }
   .info .tx { margin-top:53px; }
   .info .dot { font-size:14px; line-height:19.6px; margin:10px 0; }
@@ -276,7 +276,7 @@
     <p class="hd babel fade">RSVP</p>
     <p class="d fade">함께해주실 수 있다면 감사하겠습니다.<br>참석 여부를 알려주세요.</p>
     <details id="rsvp" class="fade">
-      <summary class="btn">메세지 남기기<b>+</b></summary>
+      <summary class="btn">참석 의사 전달하기<b>+</b></summary>
       <form id="rsvp-form">
         <label class="f">성함<input name="name" required maxlength="30" autocomplete="name" placeholder="이름"></label>
         <div class="f">구분<div class="seg"><label><input type="radio" name="side" value="신랑측" required><span>신랑측</span></label><label><input type="radio" name="side" value="신부측"><span>신부측</span></label></div></div>
@@ -467,7 +467,10 @@
   pop.addEventListener('close', () => { if ($('pop-skip').checked) try { localStorage.setItem(SKIP_KEY, Date.now() + 864e5); } catch {} });
   $('pop-go').onclick = () => { pop.close(); $('rsvp').open = true; $('rsvp-sec').scrollIntoView({ behavior: 'smooth' }); };
   if (RSVP_URL && Date.now() < WEDDING && Date.now() > skipUntil)
-    setTimeout(() => !pop.open && !$('rsvp').open && !lb.classList.contains('on') && !gv.classList.contains('on') && pop.showModal(), 4000);
+    // 갤러리까지 내려왔을 때 한 번만 띄움 (첫 화면에서 바로 뜨지 않게)
+    new IntersectionObserver((es, o) => { if (!es[0].isIntersecting) return; o.disconnect();
+      setTimeout(() => !pop.open && !$('rsvp').open && !lb.classList.contains('on') && !gv.classList.contains('on') && pop.showModal(), 600);
+    }, { threshold: .5 }).observe(document.querySelector('.gal'));
   rf.onsubmit = async e => {
     e.preventDefault();
     const btn = rf.querySelector('.submit'); btn.disabled = true; btn.textContent = '전달 중…';
