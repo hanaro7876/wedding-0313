@@ -260,7 +260,7 @@
     </div>
     <p class="when fade">2027년 3월 13일 토요일 5:00PM<br>서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀 3층 아가페홀</p>
     <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
-    <p class="cd babel fade" id="cd">00:00:00:00</p>
+    <p class="cd babel fade" id="cd">D-0</p>
     <p class="dd babel fade">DAYS UNTIL THE WEDDING</p>
   </section>
 
@@ -423,8 +423,10 @@
 
   // 카운트다운
   const tick = () => {
-    const ms = Math.max(0, WEDDING - Date.now()), p = n => String(n).padStart(2, '0');
-    $('cd').textContent = [p(Math.floor(ms / 864e5)), p(Math.floor(ms / 36e5) % 24), p(Math.floor(ms / 6e4) % 60), p(Math.floor(ms / 1e3) % 60)].join(':');
+    // 한국 날짜 기준 D-day (예식 당일 0시부터 D-DAY)
+    const k = new Date(Date.now() + 9 * 36e5), w = new Date(WEDDING.getTime() + 9 * 36e5);
+    const d = Math.round((Date.UTC(w.getUTCFullYear(), w.getUTCMonth(), w.getUTCDate()) - Date.UTC(k.getUTCFullYear(), k.getUTCMonth(), k.getUTCDate())) / 864e5);
+    $('cd').textContent = d > 0 ? `D-${d}` : d === 0 ? 'D-DAY' : `D+${-d}`;
   };
   tick(); setInterval(tick, 1000);
 
