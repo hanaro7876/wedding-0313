@@ -149,6 +149,14 @@
   .heart:not(:has(.btn)) { display:none; } /* 연락처 없으면 빈 여백 제거 */
   .heart .btns { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:0; }
 
+  /* 사진·영상 올리기 */
+  .up { min-height:auto; padding:40px 28px 100px; }
+  .up .d { margin-top:7px; }
+  #up-who { display:block; width:200px; margin:40px auto 0; padding:8px 2px; border:none; border-bottom:1px solid #e3e1df; background:transparent; font:400 14px var(--kr); color:var(--ink); text-align:center; outline:none; }
+  #up-pick { margin-top:18px; }
+  #up-bar { width:220px; height:4px; margin:22px auto 0; background:#ebebeb; border-radius:2px; overflow:hidden; }
+  #up-bar i { display:block; width:0; height:100%; background:var(--dark); transition:width .2s; }
+  #up-msg { margin-top:10px; font-size:12px; line-height:16.8px; color:var(--btn-ink); }
   /* INFO · 푸터 */
   .info { min-height:auto; padding:80px 28px 100px; }
   .info .tx { margin-top:53px; }
@@ -302,6 +310,16 @@
     </div>
     <button class="btn share fade" id="share">청첩장 링크 복사하기</button>
   </section>
+  <section class="up" id="up-sec">
+    <p class="hd babel fade">SHARE</p>
+    <p class="d fade">예식 날 찍어주신 사진과 영상을 나눠주세요.<br>원본 그대로 저희에게 전달됩니다.</p>
+    <div class="fade">
+      <input id="up-who" maxlength="20" placeholder="성함 (선택)" autocomplete="name">
+      <label class="btn" id="up-pick">사진·영상 올리기 +<input type="file" id="up-file" accept="image/*,video/*" multiple hidden></label>
+      <div id="up-bar" hidden><i></i></div>
+      <p id="up-msg" aria-live="polite"></p>
+    </div>
+  </section>
   <footer class="babel">© EUNGANG &amp; DAIN. WITH LOVE.</footer>
 </main>
 
@@ -400,6 +418,41 @@
   $('call-bride').onclick = () => contactOf('신부측', PEOPLE.bride);
   if (!PEOPLE.groom.some(p => p[2])) $('call-groom').remove();
   if (!PEOPLE.bride.some(p => p[2])) $('call-bride').remove();
+
+  // 사진·영상 올리기 → 구글 드라이브 (사진업로드_구글드라이브코드.gs)
+  const UPLOAD_URL = ''; // 웹 앱 배포 URL을 넣으면 섹션이 나타남
+  if (!UPLOAD_URL) $('up-sec').remove();
+  else {
+    const file = $('up-file'), bar = $('up-bar'), fill = bar.firstElementChild, msg = $('up-msg'), CHUNK = 8 * 1024 * 1024;
+    let busy = false;
+    addEventListener('beforeunload', e => { if (busy) e.preventDefault(); });
+    // 드라이브 업로드 주소로 조각 전송 (308 = 다음 조각 계속)
+    const put = (url, blob, range, onp) => new Promise((ok, no) => {
+      const x = new XMLHttpRequest(); x.open('PUT', url); x.setRequestHeader('Content-Range', range);
+      x.upload.onprogress = e => onp(e.loaded);
+      x.onload = () => (x.status === 308 || x.status < 300) ? ok() : no(x.status);
+      x.onerror = () => no(0); x.send(blob);
+    });
+    file.onchange = async () => {
+      const files = [...file.files].filter(f => f.size); if (!files.length) return;
+      const total = files.reduce((a, f) => a + f.size, 0); let done = 0, fail = 0;
+      const show = n => { fill.style.width = (n / total * 100).toFixed(1) + '%'; msg.textContent = `올리는 중… ${Math.floor(n / total * 100)}% (화면을 켜 두세요)`; };
+      busy = true; $('up-pick').style.pointerEvents = 'none'; bar.hidden = false; show(0);
+      for (const f of files) {
+        try {
+          const r = await (await fetch(UPLOAD_URL, { method: 'POST', body: JSON.stringify({ name: f.name, type: f.type, size: f.size, who: $('up-who').value }) })).json();
+          if (!r.url) throw r.error;
+          for (let s = 0; s < f.size; s += CHUNK) {
+            const end = Math.min(s + CHUNK, f.size);
+            await put(r.url, f.slice(s, end), `bytes ${s}-${end - 1}/${f.size}`, l => show(done + s + l));
+          }
+        } catch { fail++; }
+        done += f.size; show(done);
+      }
+      msg.textContent = fail ? `${files.length - fail}개 완료, ${fail}개 실패 — 실패한 파일만 다시 올려주세요.` : `${files.length}개 모두 전달되었습니다. 감사합니다!`;
+      busy = false; $('up-pick').style.pointerEvents = ''; file.value = '';
+    };
+  }
 
   // 참석 의사 → 구글 시트
   if (!RSVP_URL) $('rsvp').style.display = 'none';
