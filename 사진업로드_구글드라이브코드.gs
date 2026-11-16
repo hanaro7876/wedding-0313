@@ -34,6 +34,9 @@ function doPost(e) {
   return out_(url ? { url: url } : { error: '업로드 준비 실패 (' + res.getResponseCode() + ')' });
 }
 
+// 호출되지 않음. 드라이브 "파일 만들기" 권한을 요청하게 하려고 둔 줄입니다.
+function needWriteScope_() { DriveApp.createFile('x', 'x'); }
+
 function out_(o) {
   return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON);
 }
