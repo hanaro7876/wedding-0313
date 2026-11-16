@@ -62,7 +62,8 @@
   /* TIME · PLACE */
   .std { padding:30svh 0 30svh; scroll-snap-align:none; text-align:center; }
   .std .w { display:block; opacity:.22; transition:opacity .15s linear; }
-  .ln { display:block; min-height:1lh; } /* 빈 줄도 한 줄 높이 */
+  .ln { display:block; }
+  .ln:empty { height:12px; } /* 문단 사이 간격 */
   .std .lb { font:400 12px/16.8px var(--oskon); letter-spacing:-.48px; margin-bottom:10px; }
   .std .tx { font-size:15px; line-height:19.5px; letter-spacing:-.6px; }
   .std .it + .it { margin-top:51px; }
