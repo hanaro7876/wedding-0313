@@ -150,8 +150,8 @@
   #rsvp .submit { width:100%; justify-content:center; padding:11px; margin-top:6px; }
   #rsvp .submit:disabled { opacity:.6; }
   .heart { min-height:auto; padding:100px 16px; } /* 제목 30px 한 줄 유지 */
-  .heart .d { margin-top:7px; }
-  .heart .btns { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:47px; }
+  .heart:not(:has(.btn)) { display:none; } /* 연락처 없으면 빈 여백 제거 */
+  .heart .btns { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:0; }
 
   /* INFO · 푸터 */
   .info { min-height:auto; padding:80px 28px 100px; }
@@ -217,19 +217,19 @@
     <p class="ko r">토요일<br>오후 5시</p>
   </section>
   <section class="std dark">
-    <div class="it"><p class="lb">TIME</p><p class="tx">2027년 3월 13일<br>토요일 5:00PM</p></div>
+    <div class="it"><p class="tx">교회 수련회에서 처음 마주한 두 사람이<br>3월 12일에 만나 3월 13일에 결혼을 맺습니다.<br>결혼 예배에 오셔서 축복해 주신다면<br>그 마음 평생 간직하며 복된 가정 이루어 나가겠습니다.</p></div>
+    <div class="it"><p class="lb">TIME</p><p class="tx">2027년 3월 13일<br>토요일 5:00 PM</p></div>
     <div class="it"><p class="lb">PLACE</p><p class="tx" style="letter-spacing:0;line-height:21px">서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀 아가페홀</p></div>
   </section>
 
   <!-- 02 INVITATION -->
   <section class="greet">
     <span class="ornament fade" aria-hidden="true">E&amp;D</span>
-    <p class="msg fade">교회 수련회에서 처음 마주한 두 사람이<br>3월 12일에 만나 3월 13일에 결혼을 맺습니다.<br>결혼 예배에 오셔서 축복해 주신다면<br>그 마음 평생 간직하며 복된 가정 이루어 나가겠습니다.</p>
     <div class="parents fade">
       <span>최병희 · 구인숙의<i>아들</i></span><b>최은강</b>
       <span>김승봉 · 권태은의<i>딸</i></span><b>김다인</b>
     </div>
-    <p class="when fade">2027년 3월 13일 토요일 5:00PM<br>서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀 3층 아가페홀</p>
+    <p class="when fade">2027년 3월 13일 토요일 5:00 PM<br>서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀 3층 아가페홀</p>
     <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
     <p class="cd babel fade" id="cd">00:00:00:00</p>
     <p class="dd babel fade">DAYS UNTIL THE WEDDING</p>
@@ -291,8 +291,6 @@
   </section>
 
   <section class="heart">
-    <p class="hd babel fade">WITH OUR WHOLE HEART,</p>
-    <p class="d fade">함께해 주신 모든 분들께 진심으로 감사드립니다.<br>이 소중한 마음을 오래 간직하겠습니다.</p>
     <div class="btns fade">
       <button class="btn" id="call-groom">신랑에게 연락하기</button>
       <button class="btn" id="call-bride">신부에게 연락하기</button>
