@@ -87,7 +87,8 @@
   .ornament { display:block; margin:0 auto 42px; width:48px; height:36px; font:400 24px/36px var(--script); }
   .greet .msg { font-size:14px; line-height:28px; letter-spacing:-.2px; }
   .parents { margin-top:29px; display:grid; grid-template-columns:auto auto; justify-content:center; column-gap:18px; row-gap:5px; align-items:center; }
-  .parents span { font-size:12px; line-height:16.8px; text-align:right; }
+  .parents span { font-size:12px; line-height:16.8px; display:flex; justify-content:space-between; gap:4px; }
+  .parents i { font-style:normal; }
   .parents b { font-weight:400; font-size:15px; line-height:21px; text-align:left; }
   .greet .when { margin-top:29px; font-size:14px; line-height:28px; }
   .duo { display:flex; justify-content:center; align-items:flex-start; gap:10px; margin:40px 20px 0; }
@@ -107,7 +108,7 @@
   .rows > div:last-child { border:none; }
   .rows dt { font-size:12px; line-height:16.8px; }
   .rows dd { font-size:13px; line-height:18.2px; }
-  .navs { display:flex; justify-content:flex-end; gap:6px; margin:22px 20px 0; }
+  .navs { display:flex; justify-content:flex-start; gap:6px; margin:22px 20px 0 80px; }
   .navs .btn::after { content:'↗'; font-size:11px; }
 
   /* 04 갤러리 (375×650) */
@@ -168,7 +169,6 @@
   .heart .hd { font-size:23px; line-height:32.2px; }
   .heart .d { margin-top:7px; }
   .heart .btns { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:47px; }
-  .heart .end { margin-top:47px; }
 
   /* INFO · 푸터 */
   .info { min-height:auto; padding:80px 28px 100px; }
@@ -251,10 +251,10 @@
   <!-- 02 INVITATION -->
   <section class="greet">
     <span class="ornament fade" aria-hidden="true">E&amp;D</span>
-    <p class="msg fade">서로 다른 길을 걸어온 두 사람이<br>이제 같은 곳을 바라보며 한 길을 걸어가려 합니다.<br>바쁘신 중에도 오셔서 축복해 주신다면<br>그 마음 오래 간직하며 감사히 기억하겠습니다.</p>
+    <p class="msg fade">교회 수련회에서 처음 마주한 두 사람이<br>3월 12일에 만나 3월 13일에 결혼을 맺습니다.<br>결혼 예배에 오셔서 축복해 주신다면<br>그 마음 평생 간직하며 복된 가정 이루어 나가겠습니다.</p>
     <div class="parents fade">
-      <span>최병희 · 구인숙의 아들</span><b>최은강</b>
-      <span>김승봉 · 권태은의 딸</span><b>김다인</b>
+      <span>최병희 · 구인숙의<i>아들</i></span><b>최은강</b>
+      <span>김승봉 · 권태은의<i>딸</i></span><b>김다인</b>
     </div>
     <p class="when fade">2027년 3월 13일 토요일 5:00PM<br>서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀 3층 아가페홀</p>
     <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
@@ -324,7 +324,6 @@
       <button class="btn" id="call-groom">신랑에게 연락하기</button>
       <button class="btn" id="call-bride">신부에게 연락하기</button>
     </div>
-    <p class="end fade">소중한 분들과 함께할 이 날을<br>마음 깊이 기다리고 있겠습니다.</p>
   </section>
 
   <section class="info">
