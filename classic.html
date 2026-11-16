@@ -33,6 +33,7 @@
   .gift { align-items:stretch; }
   .dark { background:var(--dark); color:#fff; }
   .babel { font-family:var(--babel); font-weight:500; text-transform:uppercase; }
+  .hd.babel, #gal-cover b { font:500 30px/42px var(--babel); } /* 섹션 제목 통일 */
   .gray-t { color:var(--gray); }
   .btn { display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border:none; border-radius:4px; background:var(--btn); color:var(--btn-ink); font:400 13px/18.2px var(--kr); text-decoration:none; cursor:pointer; }
   .fade { opacity:0; transform:translateY(20px); transition:opacity .9s ease, transform .9s ease; }
@@ -99,7 +100,7 @@
 
   /* 03 오시는 길 */
   .loc { min-height:auto; padding:100px 0 0; text-align:left; }
-  .loc .hd { margin-left:20px; font-size:30px; line-height:30px; }
+  .loc .hd { margin-left:20px; }
   .loc .sub { margin:7px 0 0 20px; font-size:16px; line-height:22.4px; }
   .map { display:block; margin:44px 20px 0; height:313px; overflow:hidden; background:#ddd; }
   .map img { width:100%; height:100%; object-fit:cover; }
@@ -116,7 +117,7 @@
   #gal-cover { position:relative; display:block; width:100%; height:100svh; min-height:600px; padding:0; border:none; cursor:pointer; background:var(--dark); }
   #gal-cover img { width:100%; height:100%; object-fit:cover; display:block; }
   #gal-cover span { position:absolute; left:50%; bottom:44px; transform:translateX(-50%); padding:7px 16px; border-radius:4px; background:rgba(235,235,235,.92); color:var(--btn-ink); font:400 13px/18px var(--kr); white-space:nowrap; }
-  #gal-cover b { position:absolute; left:0; right:0; top:48px; color:#fff; font:500 30px/1 var(--babel); text-shadow:0 1px 8px rgba(0,0,0,.25); }
+  #gal-cover b { position:absolute; left:0; right:0; top:48px; color:#fff; text-shadow:0 1px 8px rgba(0,0,0,.25); }
   #gal-view { position:fixed; inset:0; z-index:24; background:var(--white); overflow-y:auto; display:none; }
   #gal-view.on { display:block; }
   #gal-view .hd { position:sticky; top:0; z-index:1; display:flex; justify-content:center; align-items:center; height:56px; background:rgba(252,252,251,.94); font:500 18px var(--babel); color:var(--ink); }
@@ -147,12 +148,11 @@
 
   /* 07 RSVP & 연락 */
   .rsvp { min-height:auto; padding:80px 28px 140px; } /* 달력 바로 아래 이어지게 */
-  .rsvp .hd { font-size:30px; line-height:42px; }
   .rsvp .d { margin-top:7px; }
   #rsvp { margin-top:57px; }
-  #rsvp > summary { list-style:none; font-size:16px; line-height:22.4px; color:var(--ink); padding:5px 12px; }
+  #rsvp > summary { list-style:none; }
   #rsvp > summary::-webkit-details-marker { display:none; }
-  #rsvp > summary b { font-weight:300; font-size:20px; margin-left:4px; display:inline-block; transition:.2s; }
+  #rsvp > summary b { font-weight:300; font-size:15px; line-height:1; display:inline-block; transition:.2s; }
   #rsvp[open] > summary b { transform:rotate(45deg); }
   #rsvp form { margin-top:24px; text-align:center; }
   #rsvp .f { display:block; margin-bottom:14px; font-size:12px; color:#9a9797; }
@@ -166,13 +166,11 @@
   #rsvp .submit { width:100%; justify-content:center; padding:11px; margin-top:6px; }
   #rsvp .submit:disabled { opacity:.6; }
   .heart { min-height:auto; padding:100px 28px; }
-  .heart .hd { font-size:23px; line-height:32.2px; }
   .heart .d { margin-top:7px; }
   .heart .btns { display:flex; flex-direction:column; align-items:center; gap:9px; margin-top:47px; }
 
   /* INFO · 푸터 */
   .info { min-height:auto; padding:80px 28px 100px; }
-  .info .hd { font-size:30px; line-height:42px; }
   .info .tx { margin-top:53px; }
   .info .dot { font-size:14px; line-height:19.6px; margin:10px 0; }
   .share { margin-top:110px; font-size:14px; padding:6px 13px; }
@@ -271,7 +269,7 @@
 
   <!-- 07 RSVP & CONTACT -->
   <section class="rsvp" id="rsvp-sec">
-    <p class="hd babel fade">RSVP</p>
+    <p class="hd babel fade">JOIN US</p>
     <p class="d fade">함께해주실 수 있다면 감사하겠습니다.<br>참석 여부를 알려주세요.</p>
     <details id="rsvp" class="fade">
       <summary class="btn">참석 의사 전달하기<b>+</b></summary>
