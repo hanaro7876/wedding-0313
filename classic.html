@@ -69,7 +69,7 @@
 
   /* 02 인사말 */
   .greet { padding:60px 0; }
-  .greet .msg { font-size:14px; line-height:28px; letter-spacing:-.2px; }
+  .greet .msg { font-size:14px; line-height:28px; letter-spacing:.6px; }
   .ornament { display:block; margin:0 auto 42px; width:48px; height:36px; font:400 24px/36px var(--script); }
   .parents { margin-top:29px; display:grid; grid-template-columns:auto auto; justify-content:center; column-gap:18px; row-gap:5px; align-items:center; }
   .parents span { font-size:12px; line-height:16.8px; display:flex; justify-content:space-between; gap:4px; }
@@ -77,23 +77,21 @@
   .parents b { font-weight:400; font-size:15px; line-height:21px; text-align:left; }
   .greet .when { margin-top:29px; font-size:14px; line-height:28px; }
   .duo { display:flex; justify-content:center; align-items:flex-start; gap:10px; margin:40px 20px 0; }
+  .greet .parents { margin-top:40px; }
   .duo img { flex:1; max-width:130px; aspect-ratio:3/4; object-fit:cover; object-position:50% 20%; }
   .duo img:first-child { object-position:50% 100%; } /* 신랑: 앉은 전신이라 아래쪽 위주로 */
-  .greet .cd { margin-top:42px; font-size:20px; line-height:20px; }
-  .greet .dd { margin-top:12px; font-size:14px; line-height:14px; }
 
   /* 03 오시는 길 */
-  .loc { min-height:auto; padding:100px 0 0; text-align:left; }
-  .loc .hd { margin-left:20px; }
-  .loc .sub { margin:7px 0 0 20px; font-size:16px; line-height:22.4px; }
+  .loc { min-height:auto; padding:100px 0 0; }
+  .loc .sub { margin:7px 0 0; font-size:16px; line-height:22.4px; }
   .map { display:block; margin:44px 20px 0; height:313px; overflow:hidden; background:#ddd; }
   .map img { width:100%; height:100%; object-fit:cover; }
   .rows { margin:0 20px; }
-  .rows > div { display:grid; grid-template-columns:60px 1fr; padding:16px 0 20px; border-bottom:1px solid rgba(255,255,255,.18); }
+  .rows > div { padding:16px 0 20px; border-bottom:1px solid rgba(255,255,255,.18); }
   .rows > div:last-child { border:none; }
-  .rows dt { font-size:12px; line-height:16.8px; }
+  .rows dt { font-size:12px; line-height:16.8px; margin-bottom:6px; color:var(--gray); }
   .rows dd { font-size:13px; line-height:18.2px; }
-  .navs { display:flex; justify-content:flex-start; gap:6px; margin:22px 20px 0 80px; }
+  .navs { display:flex; justify-content:center; gap:6px; margin:22px 20px 0; }
   .navs .btn::after { content:'↗'; font-size:11px; }
 
   /* 04 갤러리 (375×650) */
@@ -117,15 +115,15 @@
   .cal .cw { margin-top:60px; font-size:13px; line-height:16px; }
 
   /* 06 마음 전하실 곳 */
-  .gift { min-height:auto; padding:100px 20px; text-align:left; }
+  .gift { min-height:auto; padding:100px 20px; }
   .gift .t { font-size:20px; line-height:28px; }
   .gift .d { margin-top:16px; font-size:14px; line-height:19.6px; }
   .accs { margin-top:64px; border-top:1px solid rgba(255,255,255,.18); }
   .acc { border-bottom:1px solid rgba(255,255,255,.18); }
-  .acc summary { list-style:none; display:flex; justify-content:space-between; padding:22px 13px; font-size:16px; line-height:22.4px; cursor:pointer; }
+  .acc summary { list-style:none; display:flex; text-align:left; justify-content:space-between; padding:22px 13px; font-size:16px; line-height:22.4px; cursor:pointer; }
   .acc summary::-webkit-details-marker { display:none; }
   .acc summary::after { content:'···'; letter-spacing:2px; }
-  .acc .row { display:flex; justify-content:space-between; align-items:center; padding:0 13px 18px; }
+  .acc .row { text-align:left; display:flex; justify-content:space-between; align-items:center; padding:0 13px 18px; }
   .acc .row small { display:block; font-size:10px; line-height:14px; color:var(--gray); }
   .acc .row span { font-size:13px; line-height:18.2px; }
   .acc .row .btn { padding:2px 8px; font-size:11px; background:#fff; }
@@ -224,22 +222,20 @@
   <!-- 02 INVITATION -->
   <section class="greet">
     <span class="ornament fade" aria-hidden="true">E&amp;D</span>
-    <p class="msg fade">교회 수련회에서 처음 마주한 두 사람이<br>3월 12일에 만나 3월 13일에 결혼을 맺습니다.<br>결혼 예배에 오셔서 축복해 주신다면<br>그 마음 평생 간직하며 복된 가정 이루어 나가겠습니다.</p>
+    <p class="msg fade">교회 수련회에서 처음 마주한 두 사람이<br>4계절을 지나 결혼을 맺습니다.<br>결혼 예배에 오셔서 축복해 주신다면<br>그 마음 오래 간직하며<br>복된 가정 이루어 나가겠습니다.</p>
+    <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
     <div class="parents fade">
       <span>최병희 · 구인숙의<i>아들</i></span><b>최은강</b>
       <span>김승봉 · 권태은의<i>딸</i></span><b>김다인</b>
     </div>
     <p class="when fade">2027년 3월 13일 토요일 5:00 PM<br>서울 종로구 김상옥로 30<br>한국기독교연합회관 연합웨딩홀 3층 아가페홀</p>
-    <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
-    <p class="cd babel fade" id="cd">00:00:00:00</p>
-    <p class="dd babel fade">DAYS UNTIL THE WEDDING</p>
   </section>
 
   <!-- 05 CALENDAR -->
   <section class="cal">
     <p class="mon babel fade">3</p>
     <div class="wk babel fade"><span>28</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><u>13</u></div>
-    <p class="cw babel fade">2027. 3. 13. SAT 5:00PM<br>UNITED WEDDING HALL</p>
+    <p class="cw babel fade"><span id="cd">00:00:00:00</span><br>DAYS UNTIL THE WEDDING</p>
   </section>
 
   <!-- 07 RSVP & CONTACT -->
