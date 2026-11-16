@@ -105,7 +105,8 @@
   #gallery img { display:block; width:100%; height:auto; cursor:zoom-in; background:#e9e7e3; }
 
   /* 05 달력 */
-  .cal { display:flex; flex-direction:column; justify-content:center; align-items:center; padding:80px 0; } /* 한 화면 가운데 */
+  .pair { min-height:100svh; display:flex; flex-direction:column; justify-content:center; padding:80px 0; } /* 달력+JOIN US 한 화면 가운데 */
+  .cal { min-height:auto; display:flex; flex-direction:column; justify-content:center; align-items:center; }
   .cal .mon { font-size:50px; line-height:45px; }
   .cal .wk { display:grid; grid-template-columns:repeat(7,35px); row-gap:16px; margin-top:24px; font-size:20px; line-height:18px; letter-spacing:-.8px; text-transform:none; }
   .cal .wk u { text-underline-offset:3px; }
@@ -126,7 +127,7 @@
   .acc .row .btn { padding:2px 8px; font-size:11px; background:#fff; }
 
   /* 07 RSVP & 연락 */
-  .rsvp { padding:80px 28px; }
+  .rsvp { min-height:auto; padding:80px 28px 0; }
   .rsvp .d { margin-top:7px; }
   #rsvp { margin-top:57px; }
   #rsvp > summary { list-style:none; }
@@ -227,6 +228,7 @@
     <div class="duo fade"><img src="photos/11.jpg" alt="신랑 사진"><img src="photos/13.jpg" alt="신부 사진"></div>
   </section>
 
+  <div class="pair">
   <!-- 05 CALENDAR -->
   <section class="cal">
     <p class="mon babel fade">3</p>
@@ -249,6 +251,7 @@
     </details>
   </section>
 
+  </div>
   <!-- 04 GALLERY -->
   <section class="gal">
     <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/gallery-cover.jpg?v=03" alt=""><span>사진 보기 +</span></button>
