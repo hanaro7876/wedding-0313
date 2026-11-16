@@ -26,8 +26,6 @@
   * { box-sizing:border-box; margin:0; padding:0; }
   body { background:#e9e8e6; font:400 13px/18.2px var(--kr); color:var(--ink); -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:transparent; word-break:keep-all; }
   main { max-width:430px; margin:0 auto; background:var(--white); overflow:clip; }
-  html { scroll-snap-type:y proximity; }
-  section, footer { scroll-snap-align:start; }
   section { position:relative; text-align:center; min-height:100svh; }
   .std, .greet, .gift, .rsvp, .heart, .info { display:flex; flex-direction:column; justify-content:center; }
   .gift { align-items:stretch; }
@@ -60,7 +58,7 @@
   .hero.on .big, .hero.on .ko { opacity:1; transform:none; }
 
   /* TIME · PLACE */
-  .std { padding:30svh 0 30svh; scroll-snap-align:none; text-align:center; }
+  .std { padding:30svh 0 30svh; text-align:center; }
   .std .w { display:block; opacity:.22; transition:opacity .15s linear; }
   .ln { display:block; }
   .ln:empty { height:12px; } /* 문단 사이 간격 */
@@ -156,7 +154,7 @@
   .info .tx { margin-top:53px; }
   .info .dot { font-size:14px; line-height:19.6px; margin:10px 0; }
   .share { margin-top:110px; font-size:14px; padding:6px 13px; }
-  footer { scroll-snap-align:end; margin-top:0; padding:22px 0 30px; border-top:1px solid #ececec; font-size:10px; line-height:14px; letter-spacing:.8px; color:var(--gray); text-align:center; }
+  footer { margin-top:0; padding:22px 0 30px; border-top:1px solid #ececec; font-size:10px; line-height:14px; letter-spacing:.8px; color:var(--gray); text-align:center; }
 
   /* 고정 버튼: 음악 · 맨 위로 */
   .fab { position:fixed; right:max(12px, calc(50% - 203px)); width:30px; height:30px; border:none; border-radius:50%; background:rgba(235,235,235,.9); color:#383534; font-size:12px; cursor:pointer; z-index:9; display:flex; align-items:center; justify-content:center; }
@@ -252,6 +250,11 @@
     </details>
   </section>
 
+  <!-- 04 GALLERY -->
+  <section class="gal">
+    <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/gallery-cover.jpg" alt=""><b>GALLERY</b><span>사진 보기 +</span></button>
+  </section>
+
   <!-- 06 GIFT -->
   <section class="gift dark">
     <p class="t slide">마음 전하실 곳</p>
@@ -260,11 +263,6 @@
       <details class="acc" id="acc-groom"><summary>신랑측 계좌번호 확인하기</summary></details>
       <details class="acc" id="acc-bride"><summary>신부측 계좌번호 확인하기</summary></details>
     </div>
-  </section>
-
-  <!-- 04 GALLERY -->
-  <section class="gal">
-    <button id="gal-cover" aria-label="웨딩 갤러리 열기"><img src="photos/gallery-cover.jpg" alt=""><b>GALLERY</b><span>사진 보기 +</span></button>
   </section>
 
   <section class="heart">
