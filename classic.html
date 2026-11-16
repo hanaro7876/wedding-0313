@@ -198,7 +198,7 @@
 
 <button class="fab" id="bgm-btn" aria-label="배경음악 켜기/끄기">▶</button>
 <button class="fab" id="top-btn" aria-label="맨 위로">↑</button>
-<audio id="bgm" src="bgm.m4a" loop preload="none"></audio>
+<audio id="bgm" src="bgm.m4a" loop preload="auto"></audio>
 
 <main>
   <!-- 01 TITLE -->
@@ -454,7 +454,9 @@
   bgm.volume = .5;
   bgm.onplay = bgm.onpause = () => bgmBtn.textContent = bgm.paused ? '▶' : '❚❚';
   bgmBtn.onclick = () => bgm.paused ? bgm.play().catch(() => {}) : bgm.pause();
-  document.addEventListener('pointerdown', e => e.target !== bgmBtn && bgm.play().catch(() => {}), { once: true });
+  // 브라우저는 소리 자동재생을 막으므로 첫 터치 즉시 재생
+  const kick = e => { if (e.target === bgmBtn) return; bgm.play().catch(() => {}); ['touchstart','pointerdown','keydown'].forEach(t => removeEventListener(t, kick, true)); };
+  ['touchstart','pointerdown','keydown'].forEach(t => addEventListener(t, kick, { capture: true, passive: true }));
 </script>
 </body>
 </html>
